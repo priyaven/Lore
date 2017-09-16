@@ -1,0 +1,41 @@
+<xml>
+    <story id="1" >
+        <storyTitle>
+            The Island of Adventure
+        </storyTitle>
+        <author>
+            Curtis and Priya
+        </author>
+
+        <chapter id="1">
+            <chapterTitle>
+                The First Adventure
+            </chapterTitle>
+            <onYes>
+                2
+            </onYes>
+            <onNo>
+                3
+            </onNo>
+        </chapter>
+
+        <chapter id="2">
+            <chapterTitle>
+                The Second Adventure
+            </chapterTitle>
+            <onYes>
+                3
+            </onYes>
+            <onNo>
+                3
+            </onNo>
+        </chapter>
+        <chapter id="3">
+            <chapterTitle>
+                The Final Adventure
+            </chapterTitle>
+            <isEnd/>
+        </chapter>
+    </story>
+
+</xml>
