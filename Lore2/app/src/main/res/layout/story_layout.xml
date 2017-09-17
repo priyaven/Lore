@@ -12,6 +12,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:onClick="playNextChapter"
         app:srcCompat="@mipmap/ic_launcher" />
 
     <TextView
