@@ -49,13 +49,14 @@ public class Story {
         this.title = title;
         this.author = author;
         this.chapters = chapters;
-        this.imgfile = "@drawable/s1"; // + String.valueOf(this.id);
+        this.imgfile = "@drawable/s" + String.valueOf(this.id);
     }
 
     public Story(int id, String title, String author) {
         this.id = id;
         this.title = title;
         this.author = author;
+        this.imgfile = "@drawable/s" + String.valueOf(this.id);
     }
 
     public int getId() {

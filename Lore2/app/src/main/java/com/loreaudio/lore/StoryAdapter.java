@@ -42,10 +42,7 @@ public class StoryAdapter extends ArrayAdapter<Story> {
         title.setText(story.getTitle());
         author.setText(story.getAuthor());
 
-        String imgf = "@drawable/s1";
-        // TODO: instead of using imgf, use story.getImgfile()
-
-        int imageResource = getContext().getResources().getIdentifier(imgf, null, getContext().getPackageName());
+        int imageResource = getContext().getResources().getIdentifier(story.getImgfile(), null, getContext().getPackageName());
 
         Drawable resimg = getContext().getResources().getDrawable(imageResource);
         imgButton.setImageDrawable(resimg);
