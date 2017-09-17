@@ -9,6 +9,7 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.support.annotation.Nullable;
+import android.support.v4.content.LocalBroadcastManager;
 
 import java.util.ArrayList;
 
@@ -17,8 +18,7 @@ import java.util.ArrayList;
  */
 
 public class MusicService extends Service implements
-        MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener,
-        MediaPlayer.OnCompletionListener {
+        MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener{
 
     //media player
     private MediaPlayer player;
@@ -26,6 +26,10 @@ public class MusicService extends Service implements
     private ArrayList<String> songs;
     //current position
     private int songPosn;
+
+    private int lastPlayedSong = 999;
+
+    public boolean playing = false;
 
     private final IBinder musicBind = new MusicBinder();
 
@@ -37,6 +41,8 @@ public class MusicService extends Service implements
         //create player
         player = new MediaPlayer();
         initMusicPlayer();
+
+        //playSong(0);
     }
 
     public void initMusicPlayer(){
@@ -47,6 +53,13 @@ public class MusicService extends Service implements
         player.setWakeMode(getApplicationContext(),
                 PowerManager.PARTIAL_WAKE_LOCK);
         //player.setAudioStreamType(AudioManager.STREAM_MUSIC);
+
+        player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                audioDone(lastPlayedSong);
+            }
+        });
 
     }
 
@@ -64,13 +77,13 @@ public class MusicService extends Service implements
         return false;
     }
 
-    public void playSong(){
+    public void playSong(int i){
         //play a song
         player.reset();
 
         try{
             //player.setAudioStreamType(AudioManager.STREAM_MUSIC);
-            String trackUri = songs.get(0);
+            String trackUri = songs.get(i);
             player.setDataSource(trackUri);
         }
         catch(Exception e){
@@ -78,10 +91,14 @@ public class MusicService extends Service implements
         }
         player.setOnPreparedListener(this);
         player.prepareAsync();
+        lastPlayedSong = i;
     }
 
     public void setList(ArrayList<String> theSongs){
         songs=theSongs;
+        if(lastPlayedSong == 999) {
+            playSong(0);
+        }
     }
 
     public class MusicBinder extends Binder {
@@ -122,9 +139,13 @@ public class MusicService extends Service implements
 
     }
 
-    @Override
-    public void onCompletion(MediaPlayer mp) {
 
+
+    private void audioDone(int i) {
+        Intent intent = new Intent("audio-done");
+        // add data
+        intent.putExtra("audiotype", i);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
 
     @Override

@@ -38,7 +38,6 @@
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:onClick="songpicked"
             android:scaleType="fitXY"
             android:src="@drawable/s1" />
 
@@ -70,6 +69,7 @@
                 android:id="@+id/seekBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:progress="@android:integer/config_longAnimTime"
                 android:layout_toRightOf="@+id/textView2" />
 
             <TextView
