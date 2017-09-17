@@ -3,16 +3,19 @@ package com.loreaudio.lore;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by priya on 9/9/2017.
  */
 
-public class Chapter {
+public class Chapter implements Serializable {
     int id;
     boolean isEnd;
     String title;
+    String mp3File;
+    String mp3QuestionFile;
 
     public Chapter(int id, String title) {
         this.id = id;
@@ -20,6 +23,11 @@ public class Chapter {
         this.isEnd = false;
         this.onYes = 0;
         this.onNo = 0;
+        this.mp3File = "http://loreaudio.com/chapter" + String.valueOf(this.id);
+        this.mp3QuestionFile = this.mp3File + "question";
+        this.mp3File += ".mp3";
+        this.mp3QuestionFile += ".mp3";
+
     }
 
     int onYes;

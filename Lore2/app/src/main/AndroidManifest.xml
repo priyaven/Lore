@@ -6,6 +6,10 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:allowBackup="true"
@@ -27,6 +31,13 @@
         <activity
             android:name=".PlayChapterActivity"
             android:label="@string/title_activity_play_chapter"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <service android:name=".MusicService" />
+
+        <activity
+            android:name=".QuestionActivity"
+            android:label="@string/title_activity_question"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

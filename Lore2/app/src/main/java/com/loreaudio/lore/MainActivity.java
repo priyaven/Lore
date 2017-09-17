@@ -22,6 +22,7 @@ import javax.xml.parsers.ParserConfigurationException;
 public class MainActivity extends AppCompatActivity {
 
     ListView eachstory;
+    ArrayList<Story> storylist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document doc = builder.parse(getResources().openRawResource(R.raw.stories));
             NodeList storyNodes = doc.getElementsByTagName("story");
-            ArrayList<Story> storylist = Story.storyObjects(storyNodes);
+            storylist = Story.storyObjects(storyNodes);
             StoryAdapter storyAdapter = new StoryAdapter(MainActivity.this, storylist);
             eachstory.setAdapter(storyAdapter);
         } catch (SAXException e) {
@@ -51,6 +52,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void playNextChapter(View view) {
         Intent intent = new Intent(this, PlayChapterActivity.class);
+        Story firstStory = storylist.get(0);
+        intent.putExtra("CurStory", firstStory);
+        intent.putExtra("CurPosition", 1);
+        intent.putExtra("PrevPosition", 0);
         startActivity(intent);
     }
 

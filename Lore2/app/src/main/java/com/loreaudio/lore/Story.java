@@ -4,6 +4,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.StringTokenizer;
@@ -12,7 +13,7 @@ import java.util.StringTokenizer;
  * Created by priya on 9/9/2017.
  */
 
-public class Story {
+public class Story implements Serializable{
     int id;
     String title;
     String author;

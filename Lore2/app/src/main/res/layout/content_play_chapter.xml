@@ -7,116 +7,121 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.loreaudio.lore.PlayChapterActivity"
     tools:showIn="@layout/activity_play_chapter">
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools" android:layout_width="368dp"
-        android:layout_height="495dp"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity"
-        tools:layout_editor_absoluteY="8dp"
-        tools:layout_editor_absoluteX="8dp">
 
-        <TextView android:text="Insert Story Title" android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textview"
-            android:textSize="35dp"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:paddingBottom="0dp"
+        android:paddingLeft="0dp"
+        android:paddingRight="0dp"
+        android:paddingTop="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:context=".MainActivity"
+        tools:layout_constraintBottom_creator="1"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintTop_creator="1">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:onClick="songpicked"
+            android:scaleType="fitXY"
+            android:src="@drawable/s1" />
 
         <TextView
+            android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Insert Chapter Title"
-            android:id="@+id/textView"
-            android:layout_below="@+id/textview"
             android:layout_centerHorizontal="true"
+            android:text="Insert Chapter Title"
             android:textColor="#ff7aff24"
             android:textSize="35dp" />
 
-        <ImageView
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:id="@+id/playerStatus"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/imageView"
-            android:layout_below="@+id/textView"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/s1"/>
+            android:layout_above="@+id/playerControls"
+            android:layout_alignParentBottom="false"
+            android:gravity="center">
 
-        <Button
-            android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="time"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <SeekBar
+                android:id="@+id/seekBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/textView2" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/seekBar"
+                android:text="endtime"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/playerControls"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/forward"
-            android:id="@+id/button"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:gravity="center">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/pause"
-            android:id="@+id/button2"
-            android:layout_alignParentBottom="true"
-            android:layout_alignLeft="@+id/imageView"
-            android:layout_alignStart="@+id/imageView" />
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="false"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:text="@string/forward" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/back"
-            android:id="@+id/button3"
-            android:layout_alignTop="@+id/button2"
-            android:layout_toRightOf="@+id/button2"
-            android:layout_toEndOf="@+id/button2" />
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="false"
+                android:layout_toRightOf="@+id/button"
+                android:text="@string/pause" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/rewind"
-            android:id="@+id/button4"
-            android:layout_alignTop="@+id/button3"
-            android:layout_toRightOf="@+id/button3"
-            android:layout_toEndOf="@+id/button3" />
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/button2"
+                android:layout_toRightOf="@+id/button2"
+                android:text="@string/back" />
 
-        <SeekBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/seekBar"
-            android:layout_alignLeft="@+id/textview"
-            android:layout_alignStart="@+id/textview"
-            android:layout_alignRight="@+id/textview"
-            android:layout_alignEnd="@+id/textview"
-            android:layout_above="@+id/button" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="time"
-            android:id="@+id/textView2"
-            android:layout_above="@+id/seekBar"
-            android:layout_toLeftOf="@+id/textView"
-            android:layout_toStartOf="@+id/textView" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="endtime"
-            android:id="@+id/textView3"
-            android:layout_above="@+id/seekBar"
-            android:layout_alignRight="@+id/button4"
-            android:layout_alignEnd="@+id/button4" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Medium Text"
-            android:id="@+id/textView4"
-            android:layout_alignBaseline="@+id/textView2"
-            android:layout_alignBottom="@+id/textView2"
-            android:layout_centerHorizontal="true" />
+            <Button
+                android:id="@+id/button4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/button3"
+                android:layout_toEndOf="@+id/button3"
+                android:layout_toRightOf="@+id/button3"
+                android:text="@string/rewind" />
+        </RelativeLayout>
 
     </RelativeLayout>
 
