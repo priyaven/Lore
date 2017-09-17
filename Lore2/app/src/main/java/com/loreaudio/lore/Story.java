@@ -6,6 +6,7 @@ import org.w3c.dom.NodeList;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.StringTokenizer;
 
 /**
  * Created by priya on 9/9/2017.
@@ -15,6 +16,7 @@ public class Story {
     int id;
     String title;
     String author;
+    String imgfile;
     HashMap<Integer, Chapter> chapters;
 
     public static ArrayList<Story> storyObjects(NodeList storyNodes) {
@@ -47,6 +49,7 @@ public class Story {
         this.title = title;
         this.author = author;
         this.chapters = chapters;
+        this.imgfile = "@drawable/s1"; // + String.valueOf(this.id);
     }
 
     public Story(int id, String title, String author) {
@@ -82,6 +85,8 @@ public class Story {
     public String getAuthor() {
         return author;
     }
+
+    public String getImgfile() { return this.imgfile; }
 
     public void setAuthor(String author) {
         this.author = author;
