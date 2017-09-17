@@ -57,6 +57,7 @@ public class Story {
         this.title = title;
         this.author = author;
         this.imgfile = "@drawable/s" + String.valueOf(this.id);
+        this.chapters = new HashMap<Integer, Chapter>();
     }
 
     public int getId() {
@@ -76,11 +77,11 @@ public class Story {
     }
 
     public HashMap<Integer, Chapter> getChapters() {
-        return chapters;
+        return this.chapters;
     }
 
     public void addChapter(Chapter chapter) {
-        chapters.put(new Integer(chapter.getId()), chapter);
+        this.chapters.put(new Integer(chapter.getId()), chapter);
     }
 
     public String getAuthor() {

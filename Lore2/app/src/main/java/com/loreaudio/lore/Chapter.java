@@ -67,7 +67,7 @@ public class Chapter {
 
     public static ArrayList<Chapter> chapterObjects(NodeList chapterNodes) {
         ArrayList<Chapter> chapters = new ArrayList<Chapter>();
-        /*for (int i = 0; i < chapterNodes.getLength(); i++) {
+        for (int i = 0; i < chapterNodes.getLength(); i++) {
             Element element = (Element) chapterNodes.item(i);
             NodeList titleNodes = element.getElementsByTagName("chapterTitle");
             Element titleNode = (Element) titleNodes.item(0);
@@ -82,11 +82,11 @@ public class Chapter {
                 Element onYesEl = (Element) onYesList.item(0);
                 newChapter.setOnYes(new Integer(onYesEl.getTextContent().trim()));
                 NodeList onNoList = element.getElementsByTagName("onNo");
-                Element onNoEl = (Element) onYesList.item(0);
+                Element onNoEl = (Element) onNoList.item(0);
                 newChapter.setOnNo(new Integer(onNoEl.getTextContent().trim()));
             }
             chapters.add(newChapter);
-        }*/
+        }
         return chapters;
     }
 }
