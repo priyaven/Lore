@@ -7,16 +7,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.speech.RecognizerIntent;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import android.widget.MediaController.MediaPlayerControl;
@@ -47,18 +47,24 @@ public class PlayChapterActivity extends AppCompatActivity implements MediaPlaye
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
+
         curStory = (Story) getIntent().getSerializableExtra("CurStory");
         curPosition = (int) getIntent().getIntExtra("CurPosition", 1);
         prevPosition = (int) getIntent().getIntExtra("PrevPosition", 0);
+
+        ImageView imgview = (ImageView) findViewById(R.id.imageView);
+        int imgsrc = getResources().getIdentifier(curStory.getImgfile(), null, getPackageName());
+        Drawable resimg = getResources().getDrawable(imgsrc);
+        imgview.setImageDrawable(resimg);
 
         fix_chapter();
 
 
         //TextView storyTitle = (TextView) findViewById(R.id.textview) ;
         //storyTitle.setText(curStory.getTitle());
-
-        TextView chapterTitle = (TextView) findViewById(R.id.textView);
-        chapterTitle.setText(curChapter.getTitle());
+        //getActionBar().setTitle(curStory.getTitle());
+        getSupportActionBar().setTitle(curStory.getTitle());
 
         setController();
 
@@ -89,6 +95,9 @@ public class PlayChapterActivity extends AppCompatActivity implements MediaPlaye
         songList.add(curChapter.mp3File);
         songList.add(curChapter.mp3QuestionFile);
 
+        TextView chapterTitle = (TextView) findViewById(R.id.textView);
+        chapterTitle.setText(curChapter.getTitle());
+
         if (curChapter.isEnd()){
             Button fwd = (Button) findViewById(R.id.button);
             fwd.setEnabled(false);
@@ -105,7 +114,6 @@ public class PlayChapterActivity extends AppCompatActivity implements MediaPlaye
             bindService(playIntent, musicConnection, Context.BIND_AUTO_CREATE);
             startService(playIntent);
         }
-        //musicSrv.playSong();
     }
 
     private void setController(){
@@ -124,7 +132,7 @@ public class PlayChapterActivity extends AppCompatActivity implements MediaPlaye
         });
 
         controller.setMediaPlayer(this);
-        //controller.setAnchorView(findViewById(R.id.song_list));
+        controller.setAnchorView(findViewById(R.id.seekBar));
         controller.setEnabled(true);
     }
 

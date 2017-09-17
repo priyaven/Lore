@@ -1,6 +1,7 @@
 package com.loreaudio.lore;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.LayoutRes;
@@ -34,6 +35,15 @@ public class StoryAdapter extends ArrayAdapter<Story> {
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.story_layout, parent, false);
         }
+
+        if(position % 2 == 1) {
+            convertView.setBackgroundColor(Color.GRAY);
+        }
+        else
+        {
+            convertView.setBackgroundColor(Color.LTGRAY);
+        }
+
         // Lookup view for data population
         TextView title = (TextView) convertView.findViewById(R.id.titleText);
         TextView author = (TextView) convertView.findViewById(R.id.Author);

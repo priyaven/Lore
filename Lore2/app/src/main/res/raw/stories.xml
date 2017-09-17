@@ -38,4 +38,42 @@
         </chapter>
     </story>
 
+    <story id="2" >
+        <storyTitle>
+            Ghosts Everywhere
+        </storyTitle>
+        <author>
+            Priya Only
+        </author>
+
+        <chapter id="1">
+            <chapterTitle>
+                The First Adventure
+            </chapterTitle>
+            <onYes>
+                2
+            </onYes>
+            <onNo>
+                3
+            </onNo>
+        </chapter>
+
+        <chapter id="2">
+            <chapterTitle>
+                The Second Adventure
+            </chapterTitle>
+            <onYes>
+                3
+            </onYes>
+            <onNo>
+                3
+            </onNo>
+        </chapter>
+        <chapter id="3">
+            <chapterTitle>
+                The Final Adventure
+            </chapterTitle>
+            <isEnd/>
+        </chapter>
+    </story>
 </xml>
