@@ -71,7 +71,7 @@ public class Chapter {
             Element element = (Element) chapterNodes.item(i);
             NodeList titleNodes = element.getElementsByTagName("chapterTitle");
             Element titleNode = (Element) titleNodes.item(0);
-            String title = titleNode.getTextContent();
+            String title = titleNode.getTextContent().trim();
             int chapterId = new Integer(element.getAttribute("id"));
             Chapter newChapter = new Chapter(chapterId, title);
             NodeList isEnd = element.getElementsByTagName("isEnd");

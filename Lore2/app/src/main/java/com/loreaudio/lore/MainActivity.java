@@ -47,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-
     }
 
     public void playNextChapter(View view) {
