@@ -53,7 +53,7 @@ public class PlayChapterActivity extends AppCompatActivity implements MediaPlaye
         curPosition = (int) getIntent().getIntExtra("CurPosition", 1);
         prevPosition = (int) getIntent().getIntExtra("PrevPosition", 0);
 
-        ImageView imgview = (ImageView) findViewById(R.id.imageView);
+        ImageView imgview = (ImageView) findViewById(R.id.coverImage);
         int imgsrc = getResources().getIdentifier(curStory.getImgfile(), null, getPackageName());
         Drawable resimg = getResources().getDrawable(imgsrc);
         imgview.setImageDrawable(resimg);
@@ -95,13 +95,13 @@ public class PlayChapterActivity extends AppCompatActivity implements MediaPlaye
         songList.add(curChapter.mp3File);
         songList.add(curChapter.mp3QuestionFile);
 
-        TextView chapterTitle = (TextView) findViewById(R.id.textView);
+        TextView chapterTitle = (TextView) findViewById(R.id.chapterImage);
         chapterTitle.setText(curChapter.getTitle());
 
         if (curChapter.isEnd()){
-            Button fwd = (Button) findViewById(R.id.button);
+            Button fwd = (Button) findViewById(R.id.next);
             fwd.setEnabled(false);
-            Button pause = (Button) findViewById(R.id.button2);
+            Button pause = (Button) findViewById(R.id.pause);
             pause.setEnabled(false);
         }
     }
@@ -241,7 +241,7 @@ public class PlayChapterActivity extends AppCompatActivity implements MediaPlaye
             startActivityForResult(intent, 1);
         } catch (ActivityNotFoundException a) {
             Toast t = Toast.makeText(getApplicationContext(),
-                    "Opps! Your device doesn't support Speech to Text",
+                    "Oops! Your device doesn't support Speech to Text",
                     Toast.LENGTH_SHORT);
             t.show();
         }

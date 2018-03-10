@@ -1,7 +1,7 @@
 <xml>
     <story id="1" >
         <storyTitle>
-            The Island of Adventure
+            Ghosts Everywhere!
         </storyTitle>
         <author>
             Curtis and Priya
@@ -40,36 +40,36 @@
 
     <story id="2" >
         <storyTitle>
-            Ghosts Everywhere
+            Do You Even Lift, Bro?
         </storyTitle>
         <author>
-            Priya Only
+            That Guy
         </author>
 
-        <chapter id="1">
+        <chapter id="11">
             <chapterTitle>
                 The First Adventure
             </chapterTitle>
             <onYes>
-                2
+                12
             </onYes>
             <onNo>
-                3
+                13
             </onNo>
         </chapter>
 
-        <chapter id="2">
+        <chapter id="12">
             <chapterTitle>
                 The Second Adventure
             </chapterTitle>
             <onYes>
-                3
+                13
             </onYes>
             <onNo>
-                3
+                13
             </onNo>
         </chapter>
-        <chapter id="3">
+        <chapter id="13">
             <chapterTitle>
                 The Final Adventure
             </chapterTitle>
