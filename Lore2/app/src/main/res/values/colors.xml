@@ -10,5 +10,13 @@
     <color name="palette4">#836CA1</color>
     <color name="palette5">#18185F</color>
 
+    <color name="basicDark">#222244</color>
+    <color name="basic">#3b3d76</color>
+    <color name="basicLight">#646593</color>
+    <color name="basicHighlight">#4ed1d9</color>
+    <color name="basicAccent">#fb9241</color>
+
+
+
 
 </resources>
