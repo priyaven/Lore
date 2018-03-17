@@ -1,0 +1,63 @@
+<LinearLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:background="@color/basicDark"
+        android:orientation="vertical"
+        android:weightSum="100"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp">
+
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="40"
+            app:srcCompat="@drawable/logo1" />
+
+        <TextView
+            android:id="@+id/loreaudio"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:background="@color/basicDark"
+            android:layout_weight="10"
+            android:text="Lore Audio"
+            android:textAlignment="center"
+            android:textColor="@color/basicAccent"
+            android:textSize="30dp" />
+
+        <EditText
+            android:id="@+id/username"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:ems="10"
+            android:layout_weight="10"
+            android:inputType="text"
+            android:hint="Username" />
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:ems="10"
+            android:layout_weight="10"
+            android:inputType="textPassword"
+            android:hint="Password" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:background="@color/basicAccent"
+        android:textColor="@color/basicDark"
+        android:text="Sign In" />
+
+
+</LinearLayout>
+
