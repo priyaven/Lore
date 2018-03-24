@@ -19,7 +19,7 @@
         android:textAlignment="center"
         android:textSize="20pt"
         android:textStyle="bold"
-        android:text="Lore Audio" />
+        android:text="@string/brand_name" />
 
     <TextView
         android:id="@+id/brandTagline"
@@ -30,5 +30,5 @@
         android:gravity="end"
         android:textSize="8pt"
         android:textStyle="italic"
-        android:text="   Choose Your Own Adventure!" />
+        android:text="@string/brand_tagline" />
 </LinearLayout>

@@ -18,7 +18,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:onClick="playNextChapter"
-        android:contentDescription="Book Cover"
+        android:contentDescription="@string/book_cover"
         app:srcCompat="@drawable/logo_updated" />
 
     <TextView
@@ -32,7 +32,7 @@
         android:layout_toEndOf="@+id/storyImage"
         android:ems="10"
         android:gravity="start"
-        android:text="Book Title"
+        android:text="@string/book_title"
         android:textSize="10pt"
         android:textColor="@color/basicAccent"
         android:textAlignment="gravity"
@@ -47,7 +47,7 @@
         android:layout_toEndOf="@+id/storyImage"
         android:ems="10"
         android:gravity="start"
-        android:text="Author Name"
+        android:text="@string/author_name"
         android:textAlignment="gravity"
         android:textStyle="italic" />
 
@@ -62,6 +62,5 @@
         android:layout_toEndOf="@id/titleText"
         android:background="@drawable/dots_turq"
          />
-
 
 </RelativeLayout>
