@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@color/basicDark"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/loreLogo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/logo_updated" />
+
+    <TextView
+        android:id="@+id/brandTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/basicAccent"
+        android:textAlignment="center"
+        android:textSize="20pt"
+        android:textStyle="bold"
+        android:text="Lore Audio" />
+
+    <TextView
+        android:id="@+id/brandTagline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/basicGray"
+        android:textAlignment="center"
+        android:gravity="end"
+        android:textSize="8pt"
+        android:textStyle="italic"
+        android:text="   Choose Your Own Adventure!" />
+</LinearLayout>
