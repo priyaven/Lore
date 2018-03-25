@@ -42,8 +42,8 @@ public class StoryAdapter extends ArrayAdapter<Story> {
         TextView author = (TextView) convertView.findViewById(R.id.Author);
         ImageButton imgButton = (ImageButton) convertView.findViewById(R.id.storyImage);
         // Populate the data into the template view using the data object
-        title.setText(story.getTitle());
-        author.setText(story.getAuthor());
+        title.setText(story.getTitle().trim());
+        author.setText(story.getAuthor().trim());
 
         int imageResource = getContext().getResources().getIdentifier(story.getImgfile(), null, getContext().getPackageName());
 
