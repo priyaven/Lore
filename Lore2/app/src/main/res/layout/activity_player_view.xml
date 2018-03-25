@@ -8,31 +8,33 @@
     android:weightSum="100"
     tools:context="com.loreaudio.lore.PlayerView">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="10"
         android:orientation="horizontal"
         >
         <ImageButton
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:background="@drawable/bookmark"
             />
 
         <ImageButton
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
             android:background="@drawable/dots_turq"
             />
-    </LinearLayout>
+    </RelativeLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="30">
+        android:layout_weight="30"
+        android:gravity="center">
 
         <ImageView
-            android:layout_width="wrap_content"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:background="@drawable/logo_updated"
             android:id="@+id/imageView" />
@@ -43,7 +45,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical"
-        android:padding="20dp"
+        android:padding="40dp"
         android:layout_weight="20"
         >
 
