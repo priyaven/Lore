@@ -51,7 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Title"
+            android:text="@string/book_title"
             android:textColor="@color/basicAccent"
             android:layout_gravity="center"
             />
@@ -60,7 +60,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Author"
+            android:text="@string/author_name"
             android:textColor="@color/basicAccent"
             android:layout_gravity="center"/>
 
@@ -121,27 +121,29 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="0dp"
+        android:gravity="center"
+        android:background="@color/basic"
         android:orientation="horizontal"
         android:layout_weight="10">
 
 
         <ImageButton
             android:id="@+id/library"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:background="@drawable/mylibrary_gray" />
 
         <ImageButton
             android:id="@+id/home"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:background="@drawable/home_gray" />
 
         <ImageButton
             android:id="@+id/faves"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:background="@drawable/faves_gray" />
 
