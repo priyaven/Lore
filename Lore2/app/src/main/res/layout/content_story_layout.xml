@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/basicLight"
+    android:background="@drawable/shadow_storylyt"
+
     >
 
     <ImageButton
@@ -31,11 +32,9 @@
         android:layout_toRightOf="@+id/storyImage"
         android:layout_toEndOf="@+id/storyImage"
         android:ems="10"
-        android:gravity="start"
         android:text="@string/book_title"
         android:textSize="10pt"
         android:textColor="@color/basicAccent"
-        android:textAlignment="gravity"
         android:textStyle="bold" />
 
     <TextView
@@ -46,21 +45,7 @@
         android:layout_toRightOf="@+id/storyImage"
         android:layout_toEndOf="@+id/storyImage"
         android:ems="10"
-        android:gravity="start"
         android:text="@string/author_name"
-        android:textAlignment="gravity"
         android:textStyle="italic" />
-
-    <Button
-        android:id="@+id/settings_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/titleText"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_toRightOf="@id/titleText"
-        android:layout_toEndOf="@id/titleText"
-        android:background="@drawable/dots_turq"
-         />
 
 </RelativeLayout>
