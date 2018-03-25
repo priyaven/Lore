@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@color/basicDark"
     android:weightSum="100"
@@ -45,12 +44,13 @@
         android:layout_height="0dp"
         android:orientation="vertical"
         android:padding="20dp"
-        android:layout_weight="10"
+        android:layout_weight="20"
         >
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="Title"
             android:textColor="@color/basicAccent"
             android:layout_gravity="center"
@@ -59,6 +59,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="Author"
             android:textColor="@color/basicAccent"
             android:layout_gravity="center"/>
@@ -123,28 +124,25 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:orientation="horizontal"
-        android:layout_weight="20">
+        android:layout_weight="10">
 
 
         <ImageButton
             android:id="@+id/library"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:background="@drawable/mylibrary_gray" />
 
         <ImageButton
             android:id="@+id/home"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:background="@drawable/home_gray" />
 
         <ImageButton
             android:id="@+id/faves"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:background="@drawable/faves_gray" />
 
     </LinearLayout>
