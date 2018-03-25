@@ -33,16 +33,9 @@ public class StoryAdapter extends ArrayAdapter<Story> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         Story story = getItem(position);
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.story_layout, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.content_story_layout, parent, false);
         }
 
-        if(position % 2 == 1) {
-            convertView.setBackgroundColor(Color.GRAY);
-        }
-        else
-        {
-            convertView.setBackgroundColor(Color.LTGRAY);
-        }
 
         // Lookup view for data population
         TextView title = (TextView) convertView.findViewById(R.id.titleText);

@@ -80,7 +80,7 @@ public class Chapter implements Serializable {
             NodeList titleNodes = element.getElementsByTagName("chapterTitle");
             Element titleNode = (Element) titleNodes.item(0);
             String title = titleNode.getTextContent().trim();
-            int chapterId = new Integer(element.getAttribute("id"));
+            int chapterId = Integer.valueOf(element.getAttribute("id"));
             Chapter newChapter = new Chapter(chapterId, title);
             NodeList isEnd = element.getElementsByTagName("isEnd");
             if (isEnd.getLength() > 0) {
@@ -88,10 +88,10 @@ public class Chapter implements Serializable {
             } else {
                 NodeList onYesList = element.getElementsByTagName("onYes");
                 Element onYesEl = (Element) onYesList.item(0);
-                newChapter.setOnYes(new Integer(onYesEl.getTextContent().trim()));
+                newChapter.setOnYes(Integer.valueOf(onYesEl.getTextContent().trim()));
                 NodeList onNoList = element.getElementsByTagName("onNo");
                 Element onNoEl = (Element) onNoList.item(0);
-                newChapter.setOnNo(new Integer(onNoEl.getTextContent().trim()));
+                newChapter.setOnNo(Integer.valueOf(onNoEl.getTextContent().trim()));
             }
             chapters.add(newChapter);
         }

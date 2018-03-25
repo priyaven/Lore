@@ -3,6 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/basic"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.loreaudio.lore.MainActivity"
     >
 
     <LinearLayout
@@ -11,44 +14,51 @@
         android:orientation="vertical"
         >
 
-    <android.support.v7.widget.SearchView
-        android:id="@+id/search_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/basic"
-        android:queryHint="Browse Books"
-        android:visibility="visible"></android.support.v7.widget.SearchView>
+        <android.support.v7.widget.SearchView
+            android:id="@+id/search_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/basic"
+            android:queryHint="Browse Books"
+            android:visibility="visible" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:weightSum="2"
-        android:background="@color/basicDark"
-        >
-
-        <Button
-            android:id="@+id/popular_button"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:text="Popular"
-            android:textColor="@color/basicAccent"
-            android:background="@color/basicDark"/>
-
-        <Button
-            android:id="@+id/new_button"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:textColor="@color/basicHighlight"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="2"
             android:background="@color/basicDark"
-            android:text="New" />
+            >
 
-    </LinearLayout>
+            <Button
+                android:id="@+id/popular_button"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="Popular"
+                android:textColor="@color/basicAccent"
+                android:background="@color/basicDark"/>
 
-    <include layout="@layout/content_story_layout"
+            <Button
+                android:id="@+id/new_button"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:textColor="@color/basicHighlight"
+                android:background="@color/basicDark"
+                android:text="New" />
 
-        ></include>
+        </LinearLayout>
+
+        <!--<include layout="@layout/content_story_layout"
+
+            ></include>-->
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="10.0sp"
+            android:id="@+id/eachstory"></ListView>
 
     </LinearLayout>
 
