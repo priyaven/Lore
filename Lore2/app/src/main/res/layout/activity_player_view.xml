@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -18,6 +21,7 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:background="@drawable/bookmark"
+            android:contentDescription="@string/bookmark_button"
             />
 
         <ImageButton
@@ -25,6 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:background="@drawable/dots_turq"
+            android:contentDescription="@string/more_button"
             />
     </RelativeLayout>
     <LinearLayout
@@ -37,6 +42,7 @@
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:background="@drawable/logo_updated"
+            android:contentDescription="@string/cover_img"
             android:id="@+id/imageView" />
     </LinearLayout>
 
@@ -85,50 +91,58 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="horizontal"
-        android:layout_weight="20">
+        android:layout_weight="15">
 
         <ImageButton
             android:id="@+id/prev_ch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
             android:layout_weight="1"
+            android:contentDescription="@string/prev_button"
             android:background="@drawable/previous_ch" />
         <ImageButton
             android:id="@+id/rewind"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
             android:layout_weight="1"
+            android:contentDescription="@string/rewind_button"
             android:background="@drawable/rewind"/>
 
         <ImageButton
-            android:layout_width="150dp"
-            android:layout_height="80dp"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:background="@drawable/play"
-            />
+            android:contentDescription="@string/play_button"
+            android:background="@drawable/play" />
 
         <ImageButton
             android:id="@+id/forward"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
             android:layout_weight="1"
+            android:contentDescription="@string/ffw_button"
             android:background="@drawable/forward" />
 
         <ImageButton
             android:id="@+id/skip"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
             android:layout_weight="1"
+            android:contentDescription="@string/next_button"
             android:background="@drawable/next_ch" />
     </LinearLayout>
 
+</LinearLayout>
+
+    <!--
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:gravity="center"
         android:background="@color/basic"
         android:orientation="horizontal"
-        android:layout_weight="10">
+        android:layout_alignParentBottom="true"
+        >
 
 
         <ImageButton
@@ -150,5 +164,36 @@
             android:background="@drawable/faves_gray" />
 
     </LinearLayout>
+    -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/basic"
+        android:layout_marginTop="10dp"
+        android:weightSum="3">
 
-</LinearLayout>
+
+        <Button
+            android:id="@+id/my_library_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/mylibrary_gray" />
+
+        <Button
+            android:id="@+id/home_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/home_gray" />
+
+        <Button
+            android:id="@+id/my_faves_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/faves_gray" />
+    </LinearLayout>
+
+</RelativeLayout>

@@ -27,4 +27,14 @@
 
     <string name="brand_name">Lore Audio</string>
     <string name="brand_tagline">Choose Your Own Adventure!</string>
+
+    <string name="play_button">Play</string>
+    <string name="rewind_button">Rewind</string>
+    <string name="prev_button">Previous</string>
+    <string name="next_button">Next</string>
+    <string name="bookmark_button">Bookmark</string>
+    <string name="more_button">More...</string>
+    <string name="ffw_button">Forward</string>
+    <string name="cover_img">Cover Image</string>
+
 </resources>
