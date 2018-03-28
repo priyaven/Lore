@@ -101,6 +101,7 @@
             android:background="@drawable/rewind"/>
 
         <ImageButton
+            android:id="@+id/playpause"
             android:layout_width="150dp"
             android:layout_height="80dp"
             android:layout_weight="1"
