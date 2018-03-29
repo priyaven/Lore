@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void playNextChapter(View view) {
-        Intent intent = new Intent(this, PlayChapterActivity.class);
+        Intent intent = new Intent(this, PlayerView.class);
         Story firstStory = storylist.get(0);
         intent.putExtra("CurStory", firstStory);
         intent.putExtra("CurPosition", 1);
