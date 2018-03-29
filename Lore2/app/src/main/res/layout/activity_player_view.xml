@@ -111,6 +111,7 @@
         <ImageButton
             android:layout_width="0dp"
             android:layout_height="fill_parent"
+            android:id="@+id/playpause"
             android:layout_weight="1"
             android:contentDescription="@string/play_button"
             android:background="@drawable/play" />
