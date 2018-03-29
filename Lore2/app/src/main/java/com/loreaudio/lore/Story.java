@@ -26,10 +26,10 @@ public class Story implements Serializable{
             Element element = (Element) storyNodes.item(i);
             NodeList title = element.getElementsByTagName("storyTitle");
             Element txt = (Element) title.item(0);
-            String storyTitle = txt.getTextContent();
+            String storyTitle = txt.getTextContent().trim();
             NodeList authorNode = element.getElementsByTagName("author");
             Element authortxt = (Element) authorNode.item(0);
-            String author = authortxt.getTextContent();
+            String author = authortxt.getTextContent().trim();
             int storyId = new Integer(element.getAttribute("id"));
 
             Story newstory = new Story(storyId,  storyTitle, author);
