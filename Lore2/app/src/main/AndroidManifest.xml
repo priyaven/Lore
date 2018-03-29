@@ -35,7 +35,11 @@
 
         <service android:name=".MusicService" />
 
-        <activity android:name=".PlayerView"></activity>
+        <activity
+            android:name=".PlayerView"
+            android:label="playerView"
+            android:theme="@style/AppTheme.NoActionBar"
+            />
     </application>
 
 </manifest>
