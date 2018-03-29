@@ -24,6 +24,7 @@
     <string name="book_title">Book Title</string>
     <string name="book_cover">Book Cover</string>
     <string name="author_name">Author Name</string>
+    <string name="chapter_title">Chapter Title</string>
 
     <string name="brand_name">Lore Audio</string>
     <string name="brand_tagline">Choose Your Own Adventure!</string>
