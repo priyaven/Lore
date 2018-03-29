@@ -43,10 +43,10 @@ public class PlayChapterActivity extends AppCompatActivity implements MediaPlaye
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_play_chapter);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
+        //setContentView(R.layout.activity_play_chapter);
+        setContentView(R.layout.activity_player_view);
+        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
 
 
         curStory = (Story) getIntent().getSerializableExtra("CurStory");
@@ -61,10 +61,13 @@ public class PlayChapterActivity extends AppCompatActivity implements MediaPlaye
         fix_chapter();
 
 
-        //TextView storyTitle = (TextView) findViewById(R.id.textview) ;
-        //storyTitle.setText(curStory.getTitle());
+        TextView storyTitle = (TextView) findViewById(R.id.bookTitle) ;
+        storyTitle.setText(curStory.getTitle());
+
+        TextView authorName = (TextView) findViewById(R.id.authorName);
+        authorName.setText(curStory.getAuthor());
         //getActionBar().setTitle(curStory.getTitle());
-        getSupportActionBar().setTitle(curStory.getTitle());
+        //getSupportActionBar().setTitle(curStory.getTitle());
 
         setController();
 
@@ -95,7 +98,7 @@ public class PlayChapterActivity extends AppCompatActivity implements MediaPlaye
         songList.add(curChapter.mp3File);
         songList.add(curChapter.mp3QuestionFile);
 
-        TextView chapterTitle = (TextView) findViewById(R.id.chapterImage);
+        TextView chapterTitle = (TextView) findViewById(R.id.chapterTitle);
         chapterTitle.setText(curChapter.getTitle());
 
         if (curChapter.isEnd()){
