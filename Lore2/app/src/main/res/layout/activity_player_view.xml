@@ -20,8 +20,9 @@
         <ImageButton
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/bookmark"
+            android:background="@drawable/bookmark_toggle"
             android:contentDescription="@string/bookmark_button"
+            android:onClick="toggleBookmark"
             android:id="@+id/bookmark_button"
             />
 
@@ -113,7 +114,8 @@
             android:layout_weight="1"
             android:contentDescription="@string/prev_button"
             android:background="@drawable/previous_ch"
-            android:onClick="playNext"/>
+            />
+
         <ImageButton
             android:id="@+id/rewind"
             android:layout_width="0dp"

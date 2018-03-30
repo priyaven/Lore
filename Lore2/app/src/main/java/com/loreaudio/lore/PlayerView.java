@@ -384,7 +384,10 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
 
     public void toggleBookmark(View view){
         ImageButton bookmark = (ImageButton) findViewById(R.id.bookmark_button);
-
+        bookmark.setActivated(!bookmark.isActivated());
+        /* TODO
+         Add modifying chapter bookmarks and writing to server when the time comes. 
+         */
     }
 
     private void yesNoListener() {
