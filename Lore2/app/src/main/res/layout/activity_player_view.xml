@@ -122,6 +122,7 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:contentDescription="@string/rewind_button"
+            android:onClick="rewind"
             android:background="@drawable/rewind"/>
 
         <ImageButton
@@ -139,6 +140,7 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:contentDescription="@string/ffw_button"
+            android:onClick="fastforward"
             android:background="@drawable/forward" />
 
         <ImageButton

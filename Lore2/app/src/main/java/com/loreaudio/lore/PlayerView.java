@@ -382,11 +382,25 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
         updatePausePlay();
     }
 
+    public void fastforward(View view) {
+        if (musicSrv == null) {
+            return;
+        }
+        musicSrv.ffw();
+    }
+
+    public void rewind(View view) {
+        if (musicSrv == null) {
+            return;
+        }
+        musicSrv.rewind();
+    }
+
     public void toggleBookmark(View view){
         ImageButton bookmark = (ImageButton) findViewById(R.id.bookmark_button);
         bookmark.setActivated(!bookmark.isActivated());
         /* TODO
-         Add modifying chapter bookmarks and writing to server when the time comes. 
+         Add modifying chapter bookmarks and writing to server when the time comes.
          */
     }
 

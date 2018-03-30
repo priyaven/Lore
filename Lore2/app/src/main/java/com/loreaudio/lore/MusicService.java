@@ -131,14 +131,45 @@ public class MusicService extends Service implements
         player.start();
     }
 
-    public void playPrev(){
+    public void playPrev() {
 
     }
 
-    public void playNext(){
+    public void playNext() {
 
     }
 
+    public void rewind() {
+
+        int current_position = getPosn();
+        int duration = getDur();
+        int rewind_duration = 5000;
+        if (duration > 300000){
+            rewind_duration = 15000;
+        }
+        int new_position = current_position - rewind_duration;
+        if (new_position < 0){
+            new_position = 0;
+        }
+        seek(new_position);
+
+    }
+
+    public void ffw() {
+
+        int current_position = getPosn();
+        int duration = getDur();
+        int ffw_duration = 5000;
+        if (duration > 300000){
+            ffw_duration = 15000;
+        }
+        int new_position = current_position + ffw_duration;
+        if (new_position > duration){
+            new_position = duration;
+        }
+        seek(new_position);
+
+    }
 
 
     private void audioDone(int i) {
