@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/desc"
+        android:icon="@drawable/home_white"
+        android:title="@string/description" />
+    <item
+        android:id="@+id/playback_speed"
+        android:icon="@drawable/home_white"
+        android:title="@string/pl_speed" />
+    <item
+        android:id="@+id/set_timer"
+        android:icon="@drawable/home_white"
+        android:title="@string/set_timer" />
+    <item
+        android:id="@+id/plsettings"
+        android:icon="@drawable/home_white"
+        android:title="@string/pl_settings" />
+    <item
+        android:id="@+id/clip"
+        android:icon="@drawable/home_white"
+        android:title="@string/share_clip" />
+    <item
+        android:id="@+id/shareprog"
+        android:icon="@drawable/home_white"
+        android:title="@string/share_prog" />
+
+</menu>

@@ -33,6 +33,7 @@
             android:background="@drawable/dots_turq"
             android:contentDescription="@string/more_button"
             android:id="@+id/more_button"
+            android:onClick="showPopupMenu"
             />
     </RelativeLayout>
     <LinearLayout

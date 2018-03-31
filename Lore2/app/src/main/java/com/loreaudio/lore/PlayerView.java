@@ -17,6 +17,7 @@ import android.speech.RecognizerIntent;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -28,6 +29,8 @@ import android.widget.Toast;
 
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
+import android.widget.PopupMenu;
+import android.widget.PopupMenu.OnMenuItemClickListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -403,6 +406,27 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
          Add modifying chapter bookmarks and writing to server when the time comes.
          */
     }
+
+    public void showPopupMenu(View view) {
+        PopupMenu popup = new PopupMenu(PlayerView.this, view);
+        popup.setOnMenuItemClickListener(menuItemClickListener);
+        popup.inflate(R.menu.playermenu);
+        popup.show();
+    }
+
+    private OnMenuItemClickListener menuItemClickListener = new OnMenuItemClickListener() {
+
+        @Override
+        public boolean onMenuItemClick(MenuItem menuItem) {
+            //Toast.makeText(this, "Selected Item: " + menuItem.getTitle(), Toast.LENGTH_SHORT).show();
+            switch (menuItem.getItemId()) {
+                default:
+                    return false;
+            }
+        }
+    };
+
+
 
     private void yesNoListener() {
         Intent intent = new Intent(

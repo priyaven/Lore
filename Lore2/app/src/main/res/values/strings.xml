@@ -38,4 +38,17 @@
     <string name="ffw_button">Forward</string>
     <string name="cover_img">Cover Image</string>
 
+    <string name='home'>Home</string>
+    <string name='download_all'>Download Full</string>
+    <string name='view_bookmarks'>Bookmarks</string>
+    <string name="chapters">Chapters</string>
+    <string name="feedback">Provide Feedback</string>
+    <string name="help">Help</string>
+
+    <string name="description">Description</string>
+    <string name="pl_speed">Playback Speed</string>
+    <string name="share_prog">Share Progress</string>
+    <string name="share_clip">Share Clip</string>
+    <string name="set_timer">Set Timer</string>
+    <string name="pl_settings">Player Settings</string>
 </resources>
