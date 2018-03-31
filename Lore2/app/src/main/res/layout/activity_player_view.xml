@@ -55,7 +55,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="22"
+            android:layout_weight="20"
             android:orientation="vertical"
             android:padding="40dp">
 
@@ -102,12 +102,48 @@
                 android:thumbTint="@color/basicAccent" />
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="15"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:weightSum="10">
+
+            <ImageButton
+                android:id="@+id/rewind"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:background="@drawable/rewind_15"
+                android:contentDescription="@string/rewind_button"
+                android:onClick="rewind" />
+
+            <ImageButton
+                android:id="@+id/playpause"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:background="@drawable/play"
+                android:contentDescription="@string/play_button"
+                android:onClick="togglePlay" />
+
+            <ImageButton
+                android:id="@+id/forward"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:background="@drawable/forward_15"
+                android:contentDescription="@string/ffw_button"
+                android:onClick="fastforward" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="15"
-            android:orientation="horizontal">
+            android:weightSum="4">
 
             <ImageButton
                 android:id="@+id/prev_ch"
@@ -118,31 +154,20 @@
                 android:contentDescription="@string/prev_button" />
 
             <ImageButton
-                android:id="@+id/rewind"
+                android:id="@+id/slowdown"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:background="@drawable/rewind"
-                android:contentDescription="@string/rewind_button"
-                android:onClick="rewind" />
+                android:contentDescription="@string/slow_button" />
 
             <ImageButton
-                android:id="@+id/playpause"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:background="@drawable/play"
-                android:contentDescription="@string/play_button"
-                android:onClick="togglePlay" />
-
-            <ImageButton
-                android:id="@+id/forward"
+                android:id="@+id/speedup"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:background="@drawable/forward"
-                android:contentDescription="@string/ffw_button"
-                android:onClick="fastforward" />
+                android:contentDescription="@string/speed_button" />
 
             <ImageButton
                 android:id="@+id/skip"
@@ -151,6 +176,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/next_ch"
                 android:contentDescription="@string/next_button" />
+
         </LinearLayout>
 
     </LinearLayout>
@@ -186,6 +212,7 @@
 
     </LinearLayout>
     -->
+    <!--
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="90dp"
@@ -216,5 +243,6 @@
             android:layout_weight="1"
             android:background="@drawable/faves_gray" />
     </LinearLayout>
+    -->
 
 </RelativeLayout>
