@@ -2,157 +2,158 @@
 <RelativeLayout android:layout_height="match_parent"
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android">
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/basicDark"
-    android:weightSum="100"
-    tools:context="com.loreaudio.lore.PlayerView">
 
-    <RelativeLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="10"
-        android:orientation="horizontal"
-        >
-        <ImageButton
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bookmark_toggle"
-            android:contentDescription="@string/bookmark_button"
-            android:onClick="toggleBookmark"
-            android:id="@+id/bookmark_button"
-            />
-
-        <ImageButton
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:background="@drawable/dots_turq"
-            android:contentDescription="@string/more_button"
-            android:id="@+id/more_button"
-            />
-    </RelativeLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="30"
-        android:gravity="center">
-
-        <ImageView
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/logo_updated"
-            android:contentDescription="@string/cover_img"
-            android:id="@+id/coverImage" />
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/basicDark"
         android:orientation="vertical"
-        android:padding="40dp"
-        android:layout_weight="22"
-        >
+        android:weightSum="100"
+        tools:context="com.loreaudio.lore.PlayerView">
 
-        <TextView
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/book_title"
-            android:textColor="@color/basicAccent"
-            android:layout_gravity="center"
-            android:id="@+id/bookTitle"
-            />
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/author_name"
-            android:textColor="@color/basicAccent"
-            android:id="@+id/authorName"
-            android:layout_gravity="center"/>
+            <ImageButton
+                android:id="@+id/bookmark_button"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bookmark_toggle"
+                android:contentDescription="@string/bookmark_button"
+                android:onClick="toggleBookmark" />
 
-        <TextView
-            android:id="@+id/chapterTitle"
+            <ImageButton
+                android:id="@+id/more_button"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/dots_turq"
+                android:contentDescription="@string/more_button" />
+        </RelativeLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_gravity="center"
-            android:textColor="@color/basicHighlight"
-            android:text="@string/chapter_title" />
+            android:layout_height="0dp"
+            android:layout_weight="30"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/coverImage"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/logo_updated"
+                android:contentDescription="@string/cover_img" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="22"
+            android:orientation="vertical"
+            android:padding="40dp">
+
+            <TextView
+                android:id="@+id/bookTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@string/book_title"
+                android:textColor="@color/basicAccent" />
+
+            <TextView
+                android:id="@+id/authorName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@string/author_name"
+                android:textColor="@color/basicAccent" />
+
+            <TextView
+                android:id="@+id/chapterTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@string/chapter_title"
+                android:textColor="@color/basicHighlight" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10">
+
+            <SeekBar
+                android:id="@+id/seekBar"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:progressTint="@color/basicAccent"
+                android:thumbTint="@color/basicAccent" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="15"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/prev_ch"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@drawable/previous_ch"
+                android:contentDescription="@string/prev_button" />
+
+            <ImageButton
+                android:id="@+id/rewind"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@drawable/rewind"
+                android:contentDescription="@string/rewind_button"
+                android:onClick="rewind" />
+
+            <ImageButton
+                android:id="@+id/playpause"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@drawable/play"
+                android:contentDescription="@string/play_button"
+                android:onClick="togglePlay" />
+
+            <ImageButton
+                android:id="@+id/forward"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@drawable/forward"
+                android:contentDescription="@string/ffw_button"
+                android:onClick="fastforward" />
+
+            <ImageButton
+                android:id="@+id/skip"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@drawable/next_ch"
+                android:contentDescription="@string/next_button" />
+        </LinearLayout>
 
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="10">
-        <SeekBar
-            android:id="@+id/seekBar"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:color="@color/basicAccent"
-            android:padding="10dp"
-            />
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="horizontal"
-        android:layout_weight="15">
-
-        <ImageButton
-            android:id="@+id/prev_ch"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:contentDescription="@string/prev_button"
-            android:background="@drawable/previous_ch"
-            />
-
-        <ImageButton
-            android:id="@+id/rewind"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:contentDescription="@string/rewind_button"
-            android:onClick="rewind"
-            android:background="@drawable/rewind"/>
-
-        <ImageButton
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:id="@+id/playpause"
-            android:layout_weight="1"
-            android:contentDescription="@string/play_button"
-            android:onClick="togglePlay"
-            android:background="@drawable/play" />
-
-        <ImageButton
-            android:id="@+id/forward"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:contentDescription="@string/ffw_button"
-            android:onClick="fastforward"
-            android:background="@drawable/forward" />
-
-        <ImageButton
-            android:id="@+id/skip"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:contentDescription="@string/next_button"
-            android:background="@drawable/next_ch" />
-    </LinearLayout>
-
-</LinearLayout>
 
     <!--
     <LinearLayout
