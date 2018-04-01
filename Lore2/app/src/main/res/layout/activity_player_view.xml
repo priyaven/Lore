@@ -146,39 +146,28 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="15"
-            android:weightSum="4">
+            >
 
             <ImageButton
                 android:id="@+id/prev_ch"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:background="@drawable/previous_ch"
                 android:contentDescription="@string/prev_button" />
 
             <ImageButton
                 android:id="@+id/slowdown"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:background="@drawable/rewind"
                 android:contentDescription="@string/slow_button" />
 
             <ImageButton
                 android:id="@+id/speedup"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:background="@drawable/forward"
                 android:contentDescription="@string/speed_button" />
-
-            <ImageButton
-                android:id="@+id/skip"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:background="@drawable/next_ch"
-                android:contentDescription="@string/next_button" />
 
         </LinearLayout>
 
