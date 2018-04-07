@@ -40,6 +40,12 @@
             android:label="playerView"
             android:theme="@style/AppTheme.NoActionBar"
             />
+
+        <activity
+            android:name=".Description"
+            android:label="chapterdesc"
+            android:theme="@style/AppTheme.DescriptionPopup"
+            />
     </application>
 
 </manifest>
