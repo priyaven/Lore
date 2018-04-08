@@ -422,7 +422,7 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
             switch (menuItem.getItemId()) {
                 case R.id.desc:
                     //pass intent to description class to display popup description
-                    Intent i = new Intent(PlayerView.this, Description.class);
+                    Intent i = new Intent(PlayerView.this, StoryDescription.class);
                     i.putExtra("CurStory", curStory);
                     startActivity(i);
                     return true;
@@ -430,7 +430,6 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
                     return true;
                 case R.id.set_timer:
                     return true;
-
                     //for all other cases etc.
                 default:
                     return false;
