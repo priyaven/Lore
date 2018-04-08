@@ -207,8 +207,8 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
         prev.setEnabled(true);
 
         if (curChapter.isEnd()) {
-            ImageButton skip = (ImageButton) findViewById(R.id.skip);
-            skip.setEnabled(false);
+            //ImageButton skip = (ImageButton) findViewById(R.id.skip);
+            //skip.setEnabled(false);
             //Button pause = (Button) findViewById(R.id.playpause);
             //pause.setEnabled(false);
         }
