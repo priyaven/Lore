@@ -38,8 +38,12 @@
         <activity
             android:name=".PlayerView"
             android:label="playerView"
-            android:theme="@style/AppTheme.NoActionBar"
-            />
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".StoryDescription"
+            android:label="@string/description"
+            android:theme="@style/AppTheme.DescriptionPopup" />
+
     </application>
 
 </manifest>

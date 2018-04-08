@@ -420,6 +420,17 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
         public boolean onMenuItemClick(MenuItem menuItem) {
             //Toast.makeText(this, "Selected Item: " + menuItem.getTitle(), Toast.LENGTH_SHORT).show();
             switch (menuItem.getItemId()) {
+                case R.id.desc:
+                    //pass intent to description class to display popup description
+                    Intent i = new Intent(PlayerView.this, StoryDescription.class);
+                    i.putExtra("CurStory", curStory);
+                    startActivity(i);
+                    return true;
+                case R.id.playback_speed:
+                    return true;
+                case R.id.set_timer:
+                    return true;
+                    //for all other cases etc.
                 default:
                     return false;
             }
