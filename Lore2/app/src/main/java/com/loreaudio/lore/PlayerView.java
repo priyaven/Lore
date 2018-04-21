@@ -430,7 +430,21 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
                     return true;
                 case R.id.set_timer:
                     return true;
-                    //for all other cases etc.
+                    //for all other cases etc
+                case R.id.clip:
+                    return true;
+                case R.id.shareprog:
+                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                    shareIntent.setType("text/plain");
+                    shareIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+
+                    String title = curStory.getTitle();
+                    String bodyText = "Listening to the audio book \"" + title + "\" at http://loreaudio.com/";
+
+                    shareIntent.putExtra(Intent.EXTRA_SUBJECT, title);
+                    shareIntent.putExtra(Intent.EXTRA_TEXT, bodyText);
+                    startActivity(Intent.createChooser(shareIntent, "Share audio book!"));
+                    return true;
                 default:
                     return false;
             }
