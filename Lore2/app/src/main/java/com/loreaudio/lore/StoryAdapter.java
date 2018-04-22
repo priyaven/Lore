@@ -15,6 +15,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,6 +46,9 @@ public class StoryAdapter extends ArrayAdapter<Story> {
         // Populate the data into the template view using the data object
         title.setText(story.getTitle().trim());
         author.setText(story.getAuthor().trim());
+
+        TextView storyid_hidden = (TextView) convertView.findViewById(R.id.hiddenStoryId);
+        storyid_hidden.setText(Integer.toString(position));
 
         int imageResource = getContext().getResources().getIdentifier(story.getImgfile(), null, getContext().getPackageName());
 
