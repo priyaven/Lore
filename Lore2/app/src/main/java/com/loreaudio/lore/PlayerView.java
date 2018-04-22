@@ -37,6 +37,8 @@ import java.util.HashMap;
 
 import android.util.Log;
 
+import org.w3c.dom.Text;
+
 public class PlayerView extends AppCompatActivity implements MediaPlayerControl {
 
     Story curStory;
@@ -168,6 +170,9 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
                 new IntentFilter("audio-done"));
 
         //Make sure you update Seekbar on UI thread
+        final TextView startTime = (TextView)findViewById(R.id.start);
+        final TextView endTime = (TextView)findViewById(R.id.end);
+
         mHandler = new Handler();
         PlayerView.this.runOnUiThread(new Runnable() {
 
@@ -182,7 +187,8 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
                                 // use long to avoid overflow
                                 long pos = 100L * position / duration;
                                 mProgress.setProgress((int) pos);
-
+                                startTime.setText(milliSecondsToTimer(position));
+                                endTime.setText(milliSecondsToTimer(duration));
                             }
                         }
                         if (playPauseButton != null){
@@ -197,6 +203,33 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
             }
         });
 
+    }
+
+    //from https://stackoverflow.com/questions/31421779/androidhow-to-show-time-on-my-music-player
+    private  String milliSecondsToTimer(long milliseconds) {
+        String finalTimerString = "";
+        String secondsString = "";
+
+        // Convert total duration into time
+        int hours = (int) (milliseconds / (1000 * 60 * 60));
+        int minutes = (int) (milliseconds % (1000 * 60 * 60)) / (1000 * 60);
+        int seconds = (int) ((milliseconds % (1000 * 60 * 60)) % (1000 * 60) / 1000);
+        // Add hours if there
+        if (hours > 0) {
+            finalTimerString = hours + ":";
+        }
+
+        // Prepending 0 to seconds if it is one digit
+        if (seconds < 10) {
+            secondsString = "0" + seconds;
+        } else {
+            secondsString = "" + seconds;
+        }
+
+        finalTimerString = finalTimerString + minutes + ":" + secondsString;
+
+        // return timer string
+        return finalTimerString;
     }
 
     private void fix_chapter() {

@@ -39,13 +39,14 @@
     <string name="more_button">More...</string>
     <string name="ffw_button">Forward</string>
     <string name="cover_img">Cover Image</string>
-
     <string name='home'>Home</string>
     <string name='download_all'>Download Full</string>
     <string name='view_bookmarks'>Bookmarks</string>
     <string name="chapters">Chapters</string>
     <string name="feedback">Provide Feedback</string>
     <string name="help">Help</string>
+    <string name="start_time">0:00</string>
+    <string name="end_time">0:00</string>
 
     <string name="description">Description</string>
     <string name="pl_speed">Playback Speed</string>
