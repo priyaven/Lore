@@ -127,6 +127,12 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
     };
 
     @Override
+    public void onBackPressed() {
+        Intent backToMain = new Intent(this, MainActivity.class);
+        startActivity(backToMain);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player_view);
