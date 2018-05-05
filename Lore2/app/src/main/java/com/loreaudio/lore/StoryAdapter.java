@@ -38,7 +38,6 @@ public class StoryAdapter extends ArrayAdapter<Story> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.content_story_layout, parent, false);
         }
 
-
         // Lookup view for data population
         TextView title = (TextView) convertView.findViewById(R.id.titleText);
         TextView author = (TextView) convertView.findViewById(R.id.Author);
@@ -58,4 +57,6 @@ public class StoryAdapter extends ArrayAdapter<Story> {
         // Return the completed view to render on screen
         return convertView;
     }
+
+
 }
