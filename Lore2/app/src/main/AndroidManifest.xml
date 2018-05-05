@@ -33,7 +33,7 @@
             android:label="@string/title_activity_play_chapter"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <service android:name=".MusicService" />
+        <service android:name=".MusicService" android:stopWithTask="true"/>
 
         <activity
             android:name=".PlayerView"
