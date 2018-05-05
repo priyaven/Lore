@@ -44,7 +44,7 @@ public class Story implements Serializable{
             Story newstory = new Story(storyId,  storyTitle, author, description);
 
             NodeList chapterNodes = element.getElementsByTagName("chapter");
-            ArrayList<Chapter> chapterList = Chapter.chapterObjects(chapterNodes);
+            ArrayList<Chapter> chapterList = Chapter.chapterObjects(chapterNodes, storyId);
             for(Chapter chapter:chapterList){
                 newstory.addChapter(chapter);
             }
