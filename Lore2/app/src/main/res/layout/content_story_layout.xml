@@ -6,6 +6,10 @@
     android:background="@drawable/shadow_storylyt"
     android:descendantFocusability="blocksDescendants"
     android:focusable="false"
+<<<<<<< HEAD
+=======
+
+>>>>>>> 35cf545fbfc511b96109ef37c0d6a0fc361e5a68
     >
 
     <ImageButton
@@ -39,6 +43,7 @@
         android:focusable="false"
         android:textSize="10pt"
         android:textColor="@color/basicAccent"
+        android:focusable="false"
         android:textStyle="bold" />
 
     <TextView
@@ -56,6 +61,7 @@
     <TextView android:id="@+id/hiddenStoryId"
         android:layout_height="0dp"
         android:layout_width="0dp"
+        android:focusable="false"
         android:visibility="invisible"
         android:focusable="false"
         />

@@ -12,18 +12,21 @@ import java.util.ArrayList;
 
 public class Chapter implements Serializable {
     int id;
+    int storyId;
     boolean isEnd;
     String title;
     String mp3File;
     String mp3QuestionFile;
 
-    public Chapter(int id, String title) {
+    public Chapter(int id, String title, int storyId) {
         this.id = id;
+        this.storyId = storyId;
         this.title = title;
         this.isEnd = false;
         this.onYes = 0;
         this.onNo = 0;
-        this.mp3File = "http://loreaudio.com/chapter" + String.valueOf(this.id);
+        //this.mp3File = "http://loreaudio.com/story_" + String.valueOf(storyId) + "/chapter" + String.valueOf(this.id);
+        this.mp3File = "https://s3-us-west-1.amazonaws.com/loreaudio/story_" + String.valueOf(storyId) + "/chapter" + String.valueOf(this.id);
         this.mp3QuestionFile = this.mp3File + "question";
         this.mp3File += ".mp3";
         this.mp3QuestionFile += ".mp3";
@@ -73,7 +76,7 @@ public class Chapter implements Serializable {
         this.title = title;
     }
 
-    public static ArrayList<Chapter> chapterObjects(NodeList chapterNodes) {
+    public static ArrayList<Chapter> chapterObjects(NodeList chapterNodes, int storyId) {
         ArrayList<Chapter> chapters = new ArrayList<Chapter>();
         for (int i = 0; i < chapterNodes.getLength(); i++) {
             Element element = (Element) chapterNodes.item(i);
@@ -81,7 +84,7 @@ public class Chapter implements Serializable {
             Element titleNode = (Element) titleNodes.item(0);
             String title = titleNode.getTextContent().trim();
             int chapterId = Integer.valueOf(element.getAttribute("id"));
-            Chapter newChapter = new Chapter(chapterId, title);
+            Chapter newChapter = new Chapter(chapterId, title, storyId);
             NodeList isEnd = element.getElementsByTagName("isEnd");
             if (isEnd.getLength() > 0) {
                 newChapter.setEnd(true);

@@ -22,6 +22,7 @@ public class Story implements Serializable{
     String author;
     String imgfile;
     String description;
+    int firstChapterId = Integer.MAX_VALUE;
     HashMap<Integer, Chapter> chapters;
 
     public static ArrayList<Story> storyObjects(NodeList storyNodes) {
@@ -44,7 +45,7 @@ public class Story implements Serializable{
             Story newstory = new Story(storyId,  storyTitle, author, description);
 
             NodeList chapterNodes = element.getElementsByTagName("chapter");
-            ArrayList<Chapter> chapterList = Chapter.chapterObjects(chapterNodes);
+            ArrayList<Chapter> chapterList = Chapter.chapterObjects(chapterNodes, storyId);
             for(Chapter chapter:chapterList){
                 newstory.addChapter(chapter);
             }
@@ -54,13 +55,14 @@ public class Story implements Serializable{
         return storyArrayList;
     }
 
-    public Story(int id, String title, String author, HashMap<Integer, Chapter> chapters, String description) {
+    public Story(int id, String title, String author, HashMap<Integer, Chapter> chapters, String description, int firstChapterId) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.chapters = chapters;
         this.description = description;
         this.imgfile = "@drawable/s" + String.valueOf(this.id);
+        this.firstChapterId = firstChapterId;
     }
 
     public Story(int id, String title, String author, String description) {
@@ -70,6 +72,7 @@ public class Story implements Serializable{
         this.description = description;
         this.imgfile = "@drawable/s" + String.valueOf(this.id);
         this.chapters = new HashMap<Integer, Chapter>();
+        this.firstChapterId = Integer.MAX_VALUE;
     }
 
     public int getId() {
@@ -93,7 +96,11 @@ public class Story implements Serializable{
     }
 
     public void addChapter(Chapter chapter) {
-        this.chapters.put(new Integer(chapter.getId()), chapter);
+        int chapter_id = chapter.getId();
+        this.chapters.put(new Integer(chapter_id), chapter);
+        if(chapter_id < this.firstChapterId){
+            this.firstChapterId = chapter_id;
+        }
     }
 
     public String getAuthor() {
@@ -115,4 +122,6 @@ public class Story implements Serializable{
     {
         return description;
     }
+
+    public int getFirstChapterId() { return this.firstChapterId; }
 }
