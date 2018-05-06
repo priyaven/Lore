@@ -54,4 +54,11 @@
     <string name="share_clip">Share Clip</string>
     <string name="set_timer">Set Timer</string>
     <string name="pl_settings">Player Settings</string>
+
+    <string name="downloads">Downloads</string>
+    <string name="favorites">Favorites</string>
+    <string name="history">History</string>
+    <string name="categories">Categories</string>
+    <string name="about_us">About Us</string>
+    <string name="privacy_policy">Privacy Policy</string>
 </resources>

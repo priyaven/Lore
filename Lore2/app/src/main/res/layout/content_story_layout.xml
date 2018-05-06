@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/shadow_storylyt"
-
+    android:descendantFocusability="blocksDescendants"
+    android:focusable="false"
     >
 
     <ImageButton
@@ -18,9 +19,11 @@
         android:layout_marginBottom="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:onClick="playNextChapter"
         android:contentDescription="@string/book_cover"
+        android:focusable="false"
         app:srcCompat="@drawable/logo_updated" />
+        <!--android:onClick="playNextChapter"-->
+
 
     <TextView
         android:id="@+id/titleText"
@@ -33,6 +36,7 @@
         android:layout_toEndOf="@+id/storyImage"
         android:ems="10"
         android:text="@string/book_title"
+        android:focusable="false"
         android:textSize="10pt"
         android:textColor="@color/basicAccent"
         android:textStyle="bold" />
@@ -45,6 +49,7 @@
         android:layout_toRightOf="@+id/storyImage"
         android:layout_toEndOf="@+id/storyImage"
         android:ems="10"
+        android:focusable="false"
         android:text="@string/author_name"
         android:textStyle="italic" />
 
@@ -52,6 +57,7 @@
         android:layout_height="0dp"
         android:layout_width="0dp"
         android:visibility="invisible"
+        android:focusable="false"
         />
 
 </RelativeLayout>
