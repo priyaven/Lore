@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:openDrawer="start"
+    android:fitsSystemWindows="true"
     tools:context="com.loreaudio.lore.MainActivity">
 
     <RelativeLayout
@@ -98,22 +98,30 @@
                 android:layout_weight="1"
                 android:background="@drawable/faves_gray" />
         </LinearLayout>
-
-        <FrameLayout
-            android:id="@+id/content_frame"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <!-- Container for contents of drawer - use NavigationView to make configuration easier -->
-        <android.support.design.widget.NavigationView
-            android:id="@+id/nav_view"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:background="@color/basicDark"
-            android:fitsSystemWindows="true"
-            app:menu="@menu/homemenu"/>
-
-
     </RelativeLayout>
+    <FrameLayout
+        android:id="@+id/content_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
+
+    </FrameLayout>
+
+    <!-- Container for contents of drawer - use NavigationView to make configuration easier -->
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@color/basicDark"
+        android:fitsSystemWindows="true"
+        app:menu="@menu/homemenu"
+        app:headerLayout="@layout/nav_header"/>
+
 </android.support.v4.widget.DrawerLayout>
