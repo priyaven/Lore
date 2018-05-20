@@ -8,10 +8,24 @@
     android:orientation="vertical"
     android:gravity="bottom">
 
+    <ImageView
+        android:id="@+id/img_profile"
+        android:layout_width="@dimen/profile_width"
+        android:layout_height="@dimen/profile_height"
+        android:paddingTop="@dimen/nav_header_vertical_spacing"
+        android:src="@drawable/logo_updated" />
+
     <TextView
+        android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="My header title"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+        android:text="@string/brand_name"
+        android:paddingTop="@dimen/nav_header_vertical_spacing"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+    <TextView
+        android:id="@+id/website"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>
