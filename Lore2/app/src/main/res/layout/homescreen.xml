@@ -69,35 +69,24 @@
 
         </LinearLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_alignParentBottom="true"
             android:background="@color/basic"
             android:weightSum="3">
+            
+            <android.support.design.widget.BottomNavigationView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                app:itemBackground="@color/basicDark"
+                app:itemIconTint="@color/basicHighlight"
+                app:itemTextColor="@color/basicAccent"
+                app:menu="@menu/bottomnavmenu">
+            </android.support.design.widget.BottomNavigationView>
+        </RelativeLayout>
 
-
-            <Button
-                android:id="@+id/my_library_button"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/mylibrary_gray" />
-
-            <Button
-                android:id="@+id/home_button"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/home_gray" />
-
-            <Button
-                android:id="@+id/my_faves_button"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/faves_gray" />
-        </LinearLayout>
     </RelativeLayout>
     <FrameLayout
         android:id="@+id/content_frame"
