@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -37,7 +38,7 @@ public class CircleGraphActivity extends AppCompatActivity {
         });
 
         @SuppressLint("WrongViewCast")
-        RelativeLayout lyt = (RelativeLayout) findViewById(R.id.layoutid);
+        final RelativeLayout lyt = (RelativeLayout) findViewById(R.id.layoutid);
         Button b = new Button(this);
         RelativeLayout.LayoutParams lp1 = new RelativeLayout.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -49,7 +50,7 @@ public class CircleGraphActivity extends AppCompatActivity {
         b.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle));
         lyt.addView(b);
 
-        ImageView imgv = new ImageView(this);
+        final ImageView imgv = new ImageView(this);
         GradientDrawable ringa = new GradientDrawable();
         ringa.setShape(GradientDrawable.OVAL);
         ringa.setColor(Color.TRANSPARENT);
@@ -62,8 +63,32 @@ public class CircleGraphActivity extends AppCompatActivity {
         imgv.setLayoutParams(lp2);
         lyt.addView(imgv);
 
+        final Button b2 = new Button(this);
+
+        lyt.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            public void onGlobalLayout() {
+                lyt.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+
+                int[] locations = new int[2];
+                imgv.getLocationOnScreen(locations);
+                int x = locations[0];
+                int y = locations[1];
+
+                b2.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle));
+
+                //size of button
+                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(100, 100);
+
+                //x is bottom left edge of ringa
+                params.leftMargin = x - 40;
+                params.topMargin = y;
+                b2.setLayoutParams(params);
+                lyt.addView(b2);
+
+                b2.setText("test");
+            }
+        });
 
 
     }
-
 }
