@@ -35,7 +35,7 @@ public class StoryAdapter extends ArrayAdapter<Story> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         Story story = getItem(position);
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.content_story_layout, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.content_story_layout_2, parent, false);
         }
 
         // Lookup view for data population
@@ -52,7 +52,7 @@ public class StoryAdapter extends ArrayAdapter<Story> {
         int imageResource = getContext().getResources().getIdentifier(story.getImgfile(), null, getContext().getPackageName());
 
         Drawable resimg = getContext().getResources().getDrawable(imageResource);
-        imgButton.setImageDrawable(resimg);
+        //imgButton.setImageDrawable(resimg);
 
         // Return the completed view to render on screen
         return convertView;
