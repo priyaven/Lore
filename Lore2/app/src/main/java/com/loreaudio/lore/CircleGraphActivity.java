@@ -1,6 +1,7 @@
 package com.loreaudio.lore;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.ShapeDrawable;
@@ -10,6 +11,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +22,13 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 public class CircleGraphActivity extends AppCompatActivity {
+
+    DisplayMetrics displayMetrics = new DisplayMetrics();
+    Context context = this;
+    int margin = 10;
+
+    int buttonsize = 0;
+    int ringsize = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,12 +46,19 @@ public class CircleGraphActivity extends AppCompatActivity {
             }
         });
 
+        this.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int height = displayMetrics.heightPixels;
+        int width = displayMetrics.widthPixels;
+
+        buttonsize = (width - margin)/4;
+        ringsize = 3*buttonsize;
+
         @SuppressLint("WrongViewCast")
         final RelativeLayout lyt = (RelativeLayout) findViewById(R.id.layoutid);
         Button b = new Button(this);
         RelativeLayout.LayoutParams lp1 = new RelativeLayout.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT);
+               buttonsize,
+                buttonsize);
 
         lp1.addRule(RelativeLayout.CENTER_IN_PARENT);
         b.setLayoutParams(lp1);
@@ -57,7 +73,7 @@ public class CircleGraphActivity extends AppCompatActivity {
         ringa.setStroke(2, Color.GRAY);
         imgv.setBackground(ringa);
 
-        RelativeLayout.LayoutParams lp2 = new RelativeLayout.LayoutParams(500, 500);
+        RelativeLayout.LayoutParams lp2 = new RelativeLayout.LayoutParams(ringsize, ringsize);
 
         lp2.addRule(RelativeLayout.CENTER_IN_PARENT);
         imgv.setLayoutParams(lp2);
@@ -77,10 +93,10 @@ public class CircleGraphActivity extends AppCompatActivity {
                 b2.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle));
 
                 //size of button
-                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(100, 100);
+                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(buttonsize, buttonsize);
 
                 //x is bottom left edge of ringa
-                params.leftMargin = x - 40;
+                params.leftMargin = x - buttonsize/3;
                 params.topMargin = y;
                 b2.setLayoutParams(params);
                 lyt.addView(b2);
