@@ -12,6 +12,8 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.media.Image;
@@ -21,6 +23,7 @@ import android.os.IBinder;
 import android.provider.ContactsContract;
 import android.speech.RecognizerIntent;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
@@ -236,6 +239,11 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
         int height2 = (int) ceil(height*heightfactor);
         int width = displayMetrics.widthPixels;
 
+        Drawable chapterColor = getResources().getDrawable(R.drawable.circle);
+        Drawable prevChapter = getResources().getDrawable(R.drawable.circle);
+        Drawable yesColor = getResources().getDrawable(R.drawable.circle);
+        Drawable noColor = getResources().getDrawable(R.drawable.circle);
+
         if (height < width)
             buttonsize = (int)(height)/4;
         else
@@ -252,7 +260,7 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
         lp1.addRule(RelativeLayout.CENTER_IN_PARENT);
         b.setLayoutParams(lp1);
         b.setText(title);
-        b.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle));
+        b.setBackgroundDrawable(chapterColor);
         lyt.addView(b);
 
         final ImageView imgv = new ImageView(this);
@@ -272,8 +280,8 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
         final Button b2 = new Button(this);
         final Button b3 = new Button(this);
 
-        b2.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle));
-
+        yesColor.setColorFilter(new PorterDuffColorFilter(Color.GREEN, PorterDuff.Mode.SRC));
+        b2.setBackgroundDrawable(yesColor);
         //size of button
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(buttonsize, buttonsize);
 
@@ -293,7 +301,8 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
             }
         });
 
-        b3.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle));
+        noColor.setColorFilter(new PorterDuffColorFilter(Color.RED, PorterDuff.Mode.SRC));
+        b3.setBackgroundDrawable(noColor);
 
         //size of button
         RelativeLayout.LayoutParams params3 = new RelativeLayout.LayoutParams(buttonsize, buttonsize);
@@ -316,7 +325,8 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
 
         if(!isRoot) {
             final Button bpar = new Button(this);
-            bpar.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle));
+            prevChapter.setColorFilter(new PorterDuffColorFilter(Color.GRAY, PorterDuff.Mode.SRC));
+            bpar.setBackgroundDrawable(prevChapter);
 
             //size of button
             RelativeLayout.LayoutParams paramspar = new RelativeLayout.LayoutParams(buttonsize * 2, buttonsize * 2);
