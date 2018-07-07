@@ -1,5 +1,6 @@
 package com.loreaudio.lore;
 
+import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -7,7 +8,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,11 +23,13 @@ import android.speech.RecognizerIntent;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import android.widget.MediaController.MediaPlayerControl;
@@ -38,6 +46,8 @@ import java.util.HashMap;
 import android.util.Log;
 
 import org.w3c.dom.Text;
+
+import static java.lang.Math.ceil;
 
 public class PlayerView extends AppCompatActivity implements MediaPlayerControl {
 
@@ -143,12 +153,14 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
         curPosition = (int) getIntent().getIntExtra("CurPosition", 1);
         prevPosition = (int) getIntent().getIntExtra("PrevPosition", 0);
 
-        ImageView imgview = (ImageView) findViewById(R.id.coverImage);
-        int imgsrc = getResources().getIdentifier(curStory.getImgfile(), null, getPackageName());
-        Drawable resimg = getResources().getDrawable(imgsrc);
-        imgview.setBackground(resimg);
+        //ImageView imgview = (ImageView) findViewById(R.id.coverImage);
+        //int imgsrc = getResources().getIdentifier(curStory.getImgfile(), null, getPackageName());
+        //Drawable resimg = getResources().getDrawable(imgsrc);
+        //imgview.setBackground(resimg);
+
         fix_chapter();
 
+        createNode(false);
 
         TextView storyTitle = (TextView) findViewById(R.id.bookTitle);
         storyTitle.setText(curStory.getTitle());
@@ -205,6 +217,124 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
 
     }
 
+    private void createNode(boolean isRoot){
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        int lytweight = 52;
+        float heightfactor = 52/100;
+        Context context = this;
+        float marginy = 250*heightfactor;
+        int marginx = 125;
+
+        int margin = 10;
+
+        int buttonsize = 0;
+        int ringsize = 0;
+
+        int numButtons = 3;
+        this.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int height = displayMetrics.heightPixels;
+        int height2 = (int) ceil(height*heightfactor);
+        int width = displayMetrics.widthPixels;
+
+        if (height < width)
+            buttonsize = (int)(height)/4;
+        else
+            buttonsize = (width)/4;
+        ringsize = 3*buttonsize;
+
+        @SuppressLint("WrongViewCast")
+        final RelativeLayout lyt = (RelativeLayout) findViewById(R.id.circlegraph);
+        Button b = new Button(this);
+        RelativeLayout.LayoutParams lp1 = new RelativeLayout.LayoutParams(
+                buttonsize,
+                buttonsize);
+
+        lp1.addRule(RelativeLayout.CENTER_IN_PARENT);
+        b.setLayoutParams(lp1);
+        b.setText(Integer.toString(height2));
+        b.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle));
+        lyt.addView(b);
+
+        final ImageView imgv = new ImageView(this);
+        GradientDrawable ringa = new GradientDrawable();
+        ringa.setShape(GradientDrawable.OVAL);
+        ringa.setColor(Color.TRANSPARENT);
+        ringa.setStroke(2, Color.GRAY);
+        imgv.setBackground(ringa);
+
+        RelativeLayout.LayoutParams lp2 = new RelativeLayout.LayoutParams(ringsize, ringsize);
+
+        lp2.addRule(RelativeLayout.CENTER_IN_PARENT);
+        imgv.setLayoutParams(lp2);
+        lyt.addView(imgv);
+
+
+        final Button b2 = new Button(this);
+        final Button b3 = new Button(this);
+
+        b2.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle));
+
+        //size of button
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(buttonsize, buttonsize);
+
+        b2.setLayoutParams(params);
+        b2.setX(width/2  + ringsize/2 -buttonsize/2);
+        b2.setY(height/2 - marginy);
+        lyt.addView(b2);
+
+
+        b2.setText("test1");
+
+        b3.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle));
+
+        //size of button
+        RelativeLayout.LayoutParams params3 = new RelativeLayout.LayoutParams(buttonsize, buttonsize);
+
+        b3.setLayoutParams(params3);
+        b3.setX(width/2 - buttonsize/2 - ringsize/2);
+        b3.setY(height/2 - marginy);
+        lyt.addView(b3);
+
+
+        b3.setText("test2");
+
+        if(!isRoot) {
+            final Button bpar = new Button(this);
+            bpar.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle));
+
+            //size of button
+            RelativeLayout.LayoutParams paramspar = new RelativeLayout.LayoutParams(buttonsize * 2, buttonsize * 2);
+
+            bpar.setLayoutParams(paramspar);
+            bpar.setX(0 - buttonsize/2);
+            bpar.setY(0 - marginy/2);
+            lyt.addView(bpar);
+
+
+            bpar.setText("parent");
+
+           /* ImageView line = new ImageView(this);
+            Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(bitmap);
+            line.setImageBitmap(bitmap);
+
+            // Line
+            Paint paint = new Paint();
+            paint.setColor(Color.GRAY);
+            paint.setStrokeWidth(10);
+            float startx = bpar.getX() + buttonsize*2 - buttonsize/3;
+            float starty = bpar.getY()+ buttonsize*2 - buttonsize/3;
+            int endx = width/2;
+            int endy = (int)(height/2) - buttonsize/2 - margin;
+            canvas.drawLine(startx, starty, endx, endy, paint);
+            lyt.addView(line);*/
+
+        }
+
+
+
+    }
+
     //from https://stackoverflow.com/questions/31421779/androidhow-to-show-time-on-my-music-player
     private  String milliSecondsToTimer(long milliseconds) {
         String finalTimerString = "";
@@ -242,8 +372,8 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
         TextView chapterTitle = (TextView) findViewById(R.id.chapterTitle);
         chapterTitle.setText(curChapter.getTitle());
 
-        ImageButton prev = (ImageButton) findViewById(R.id.prev_ch);
-        prev.setEnabled(true);
+        //ImageButton prev = (ImageButton) findViewById(R.id.prev_ch);
+        //prev.setEnabled(true);
 
         if (curChapter.isEnd()) {
             //ImageButton skip = (ImageButton) findViewById(R.id.skip);

@@ -19,7 +19,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="10"
+            android:layout_weight="7"
             android:orientation="horizontal">
 
             <ImageButton
@@ -40,7 +40,17 @@
                 android:contentDescription="@string/more_button" />
         </RelativeLayout>
 
-        <LinearLayout
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="52"
+            android:id="@+id/circlegraph"
+            android:orientation="vertical"
+            >
+
+        </RelativeLayout>
+
+       <!-- <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="30"
@@ -52,15 +62,15 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/logo_updated"
                 android:contentDescription="@string/cover_img" />
-        </LinearLayout>
+        </LinearLayout> -->
 
 
-        <LinearLayout
+         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="20"
+            android:layout_weight="15"
             android:orientation="vertical"
-            android:padding="20dp">
+            android:padding="5dp">
 
             <TextView
                 android:id="@+id/bookTitle"
@@ -108,7 +118,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="5"
+            android:layout_weight="3"
             android:orientation="horizontal">
 
             <TextView
@@ -164,7 +174,7 @@
 
         </LinearLayout>
 
-        <LinearLayout
+        <!--<LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="15"
@@ -191,72 +201,6 @@
                 android:background="@drawable/forward"
                 android:contentDescription="@string/speed_button" />
 
-        </LinearLayout>
-
+        </LinearLayout>-->
     </LinearLayout>
-
-    <!--
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:gravity="center"
-        android:background="@color/basic"
-        android:orientation="horizontal"
-        android:layout_alignParentBottom="true"
-        >
-
-
-        <ImageButton
-            android:id="@+id/library"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/mylibrary_gray" />
-
-        <ImageButton
-            android:id="@+id/home"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/home_gray" />
-
-        <ImageButton
-            android:id="@+id/faves"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/faves_gray" />
-
-    </LinearLayout>
-    -->
-    <!--
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="90dp"
-        android:layout_alignParentBottom="true"
-        android:background="@color/basic"
-        android:layout_marginTop="10dp"
-        android:weightSum="3">
-
-
-        <Button
-            android:id="@+id/my_library_button"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/mylibrary_gray" />
-
-        <Button
-            android:id="@+id/home_button"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/home_gray" />
-
-        <Button
-            android:id="@+id/my_faves_button"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/faves_gray" />
-    </LinearLayout>
-    -->
-
 </RelativeLayout>
