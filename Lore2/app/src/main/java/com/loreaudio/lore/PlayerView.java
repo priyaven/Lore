@@ -232,7 +232,7 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
 
         int numButtons = 3;
         this.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        int height = displayMetrics.heightPixels;
+        int height = displayMetrics.heightPixels/2;
         int height2 = (int) ceil(height*heightfactor);
         int width = displayMetrics.widthPixels;
 
@@ -306,14 +306,14 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
             RelativeLayout.LayoutParams paramspar = new RelativeLayout.LayoutParams(buttonsize * 2, buttonsize * 2);
 
             bpar.setLayoutParams(paramspar);
-            bpar.setX(0 - buttonsize/2);
-            bpar.setY(0 - marginy/2);
+            bpar.setX(0 - buttonsize);
+            bpar.setY(0 - buttonsize);
             lyt.addView(bpar);
 
 
             bpar.setText("parent");
 
-           /* ImageView line = new ImageView(this);
+            ImageView line = new ImageView(this);
             Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
             Canvas canvas = new Canvas(bitmap);
             line.setImageBitmap(bitmap);
@@ -327,7 +327,7 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
             int endx = width/2;
             int endy = (int)(height/2) - buttonsize/2 - margin;
             canvas.drawLine(startx, starty, endx, endy, paint);
-            lyt.addView(line);*/
+            lyt.addView(line);
 
         }
 
