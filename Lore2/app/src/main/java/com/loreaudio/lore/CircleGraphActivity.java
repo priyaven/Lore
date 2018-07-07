@@ -2,7 +2,11 @@ package com.loreaudio.lore;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.os.Bundle;
@@ -128,6 +132,22 @@ public class CircleGraphActivity extends AppCompatActivity {
 
 
             bpar.setText("parent");
+
+            ImageView line = new ImageView(this);
+            Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(bitmap);
+            line.setImageBitmap(bitmap);
+
+            // Line
+            Paint paint = new Paint();
+            paint.setColor(Color.GRAY);
+            paint.setStrokeWidth(10);
+            float startx = bpar.getX() + buttonsize*2 - buttonsize/3;
+            float starty = bpar.getY()+ buttonsize*2 - buttonsize/3;
+            int endx = width/2;
+            int endy = height/2 - buttonsize/2 - margin;
+            canvas.drawLine(startx, starty, endx, endy, paint);
+            lyt.addView(line);
 
         }
 
