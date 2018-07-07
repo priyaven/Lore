@@ -160,7 +160,7 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
 
         fix_chapter();
 
-        createNode(false);
+        createNode(false, curChapter.getTitle());
 
         TextView storyTitle = (TextView) findViewById(R.id.bookTitle);
         storyTitle.setText(curStory.getTitle());
@@ -251,7 +251,7 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
 
         lp1.addRule(RelativeLayout.CENTER_IN_PARENT);
         b.setLayoutParams(lp1);
-        b.setText(Integer.toString(height2));
+        b.setText(Integer.toString(height));
         b.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle));
         lyt.addView(b);
 
@@ -641,6 +641,22 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
 
     public void listenToYesNo(View view) {
         yesNoListener();
+    }
+
+    private void onYes(){
+        prevPosition = curPosition;
+        curPosition = curChapter.getOnYes();
+        fix_chapter();
+        musicSrv.setList(songList);
+        musicSrv.playSong(0);
+    }
+
+    private void onNo(){
+        prevPosition = curPosition;
+        curPosition = curChapter.getOnNo();
+        fix_chapter();
+        musicSrv.setList(songList);
+        musicSrv.playSong(0);
     }
 
     @Override
