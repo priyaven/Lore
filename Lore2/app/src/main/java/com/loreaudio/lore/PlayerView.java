@@ -217,7 +217,7 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
 
     }
 
-    private void createNode(boolean isRoot){
+    private void createNode(boolean isRoot, String title){
         DisplayMetrics displayMetrics = new DisplayMetrics();
         int lytweight = 52;
         float heightfactor = 52/100;
@@ -251,7 +251,7 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
 
         lp1.addRule(RelativeLayout.CENTER_IN_PARENT);
         b.setLayoutParams(lp1);
-        b.setText(Integer.toString(height));
+        b.setText(title);
         b.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle));
         lyt.addView(b);
 
@@ -283,7 +283,15 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
         lyt.addView(b2);
 
 
-        b2.setText("test1");
+        b2.setText("Yes");
+        b2.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                onYes();
+            }
+        });
 
         b3.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle));
 
@@ -296,7 +304,15 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
         lyt.addView(b3);
 
 
-        b3.setText("test2");
+        b3.setText("No");
+        b3.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                onNo();
+            }
+        });
 
         if(!isRoot) {
             final Button bpar = new Button(this);
