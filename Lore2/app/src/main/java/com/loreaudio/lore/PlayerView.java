@@ -249,6 +249,10 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
         Drawable yesColor = getResources().getDrawable(R.drawable.circle);
         Drawable noColor = getResources().getDrawable(R.drawable.circle);
 
+        int preChColor = getResources().getColor(R.color.prevChColor);
+        int yColor = getResources().getColor(R.color.yesColor);
+        int nColor = getResources().getColor(R.color.noColor);
+
         if (height < width)
             buttonsize = (int)(height)/4;
         else
@@ -286,7 +290,7 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
 
             final Button b2 = new Button(this);
             final Button b3 = new Button(this);
-            yesColor.setColorFilter(new PorterDuffColorFilter(Color.parseColor("#96f2c6"), PorterDuff.Mode.SRC));
+            yesColor.setColorFilter(new PorterDuffColorFilter(yColor, PorterDuff.Mode.SRC));
             b2.setBackgroundDrawable(yesColor);
             //size of button
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(buttonsize, buttonsize);
@@ -304,7 +308,7 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
                 }
             });
 
-            noColor.setColorFilter(new PorterDuffColorFilter(Color.parseColor("#fcc7c7"), PorterDuff.Mode.SRC));
+            noColor.setColorFilter(new PorterDuffColorFilter(nColor, PorterDuff.Mode.SRC));
             b3.setBackgroundDrawable(noColor);
 
             //size of button
@@ -327,7 +331,7 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
 
         if(!isRoot) {
             final Button bpar = new Button(this);
-            prevChapter.setColorFilter(new PorterDuffColorFilter(Color.parseColor("#9f8db2"), PorterDuff.Mode.SRC));
+            prevChapter.setColorFilter(new PorterDuffColorFilter(preChColor, PorterDuff.Mode.SRC));
             bpar.setBackgroundDrawable(prevChapter);
 
             //size of button

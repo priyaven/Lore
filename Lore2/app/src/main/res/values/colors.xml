@@ -19,6 +19,9 @@
     <color name="basicShadow">#3c3c43</color>
 
     <color name="offWhite">#f3f2f4</color>
+    <color name="prevChColor">#9f8db2</color>
+    <color name="noColor">#fcc7c7</color>
+    <color name="yesColor">#96f2c6</color>
 
 
 
