@@ -229,6 +229,7 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
         int marginx = 125;
 
         int margin = 10;
+        int buttonscale = 100;
 
         int buttonsize = 0;
         int ringsize = 0;
@@ -254,8 +255,8 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
         final RelativeLayout lyt = (RelativeLayout) findViewById(R.id.circlegraph);
         Button b = new Button(this);
         RelativeLayout.LayoutParams lp1 = new RelativeLayout.LayoutParams(
-                buttonsize,
-                buttonsize);
+                buttonsize + buttonscale,
+                buttonsize + buttonscale);
 
         lp1.addRule(RelativeLayout.CENTER_IN_PARENT);
         b.setLayoutParams(lp1);
@@ -280,7 +281,7 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
         final Button b2 = new Button(this);
         final Button b3 = new Button(this);
 
-        yesColor.setColorFilter(new PorterDuffColorFilter(Color.GREEN, PorterDuff.Mode.SRC));
+        yesColor.setColorFilter(new PorterDuffColorFilter(Color.parseColor("#96f2c6"), PorterDuff.Mode.SRC));
         b2.setBackgroundDrawable(yesColor);
         //size of button
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(buttonsize, buttonsize);
@@ -301,7 +302,7 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
             }
         });
 
-        noColor.setColorFilter(new PorterDuffColorFilter(Color.RED, PorterDuff.Mode.SRC));
+        noColor.setColorFilter(new PorterDuffColorFilter(Color.parseColor("#fcc7c7"), PorterDuff.Mode.SRC));
         b3.setBackgroundDrawable(noColor);
 
         //size of button
@@ -325,7 +326,7 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
 
         if(!isRoot) {
             final Button bpar = new Button(this);
-            prevChapter.setColorFilter(new PorterDuffColorFilter(Color.GRAY, PorterDuff.Mode.SRC));
+            prevChapter.setColorFilter(new PorterDuffColorFilter(Color.parseColor("#9f8db2"), PorterDuff.Mode.SRC));
             bpar.setBackgroundDrawable(prevChapter);
 
             //size of button
