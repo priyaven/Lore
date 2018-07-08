@@ -162,8 +162,12 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
         //imgview.setBackground(resimg);
 
         fix_chapter();
+        boolean isRoot = true;
+        if(curPosition > 1){
+            isRoot = false;
+        }
 
-        createNode(false, curChapter.getTitle());
+        createNode(isRoot, curChapter.getTitle(),curChapter.isEnd());
 
         TextView storyTitle = (TextView) findViewById(R.id.bookTitle);
         storyTitle.setText(curStory.getTitle());
@@ -220,7 +224,7 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
 
     }
 
-    private void createNode(boolean isRoot, String title){
+    private void createNode(boolean isRoot, String title, boolean isEnd){
         DisplayMetrics displayMetrics = new DisplayMetrics();
         int lytweight = 52;
         float heightfactor = 52/100;
@@ -252,6 +256,7 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
 
         @SuppressLint("WrongViewCast")
         final RelativeLayout lyt = (RelativeLayout) findViewById(R.id.circlegraph);
+        lyt.removeAllViews();
         Button b = new Button(this);
         RelativeLayout.LayoutParams lp1 = new RelativeLayout.LayoutParams(
                 buttonsize,
@@ -263,65 +268,64 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
         b.setBackgroundDrawable(chapterColor);
         lyt.addView(b);
 
-        final ImageView imgv = new ImageView(this);
-        GradientDrawable ringa = new GradientDrawable();
-        ringa.setShape(GradientDrawable.OVAL);
-        ringa.setColor(Color.TRANSPARENT);
-        ringa.setStroke(2, Color.GRAY);
-        imgv.setBackground(ringa);
+        if(!isEnd) {
 
-        RelativeLayout.LayoutParams lp2 = new RelativeLayout.LayoutParams(ringsize, ringsize);
+            final ImageView imgv = new ImageView(this);
+            GradientDrawable ringa = new GradientDrawable();
+            ringa.setShape(GradientDrawable.OVAL);
+            ringa.setColor(Color.TRANSPARENT);
+            ringa.setStroke(2, Color.GRAY);
+            imgv.setBackground(ringa);
 
-        lp2.addRule(RelativeLayout.CENTER_IN_PARENT);
-        imgv.setLayoutParams(lp2);
-        lyt.addView(imgv);
+            RelativeLayout.LayoutParams lp2 = new RelativeLayout.LayoutParams(ringsize, ringsize);
 
-
-        final Button b2 = new Button(this);
-        final Button b3 = new Button(this);
-
-        yesColor.setColorFilter(new PorterDuffColorFilter(Color.GREEN, PorterDuff.Mode.SRC));
-        b2.setBackgroundDrawable(yesColor);
-        //size of button
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(buttonsize, buttonsize);
-
-        b2.setLayoutParams(params);
-        b2.setX(width/2  + ringsize/2 -buttonsize/2);
-        b2.setY(height/2 - marginy);
-        lyt.addView(b2);
+            lp2.addRule(RelativeLayout.CENTER_IN_PARENT);
+            imgv.setLayoutParams(lp2);
+            lyt.addView(imgv);
 
 
-        b2.setText("Yes");
-        b2.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                onYes();
-            }
-        });
+            final Button b2 = new Button(this);
+            final Button b3 = new Button(this);
 
-        noColor.setColorFilter(new PorterDuffColorFilter(Color.RED, PorterDuff.Mode.SRC));
-        b3.setBackgroundDrawable(noColor);
+            yesColor.setColorFilter(new PorterDuffColorFilter(Color.GREEN, PorterDuff.Mode.SRC));
+            b2.setBackgroundDrawable(yesColor);
+            //size of button
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(buttonsize, buttonsize);
 
-        //size of button
-        RelativeLayout.LayoutParams params3 = new RelativeLayout.LayoutParams(buttonsize, buttonsize);
-
-        b3.setLayoutParams(params3);
-        b3.setX(width/2 - buttonsize/2 - ringsize/2);
-        b3.setY(height/2 - marginy);
-        lyt.addView(b3);
+            b2.setLayoutParams(params);
+            b2.setX(width / 2 + ringsize / 2 - buttonsize / 2);
+            b2.setY(height / 2 - marginy);
+            lyt.addView(b2);
 
 
-        b3.setText("No");
-        b3.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                onNo();
-            }
-        });
+            b2.setText("Yes");
+            b2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onYes();
+                }
+            });
+
+            noColor.setColorFilter(new PorterDuffColorFilter(Color.RED, PorterDuff.Mode.SRC));
+            b3.setBackgroundDrawable(noColor);
+
+            //size of button
+            RelativeLayout.LayoutParams params3 = new RelativeLayout.LayoutParams(buttonsize, buttonsize);
+
+            b3.setLayoutParams(params3);
+            b3.setX(width / 2 - buttonsize / 2 - ringsize / 2);
+            b3.setY(height / 2 - marginy);
+            lyt.addView(b3);
+
+
+            b3.setText("No");
+            b3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onNo();
+                }
+            });
+        }
 
         if(!isRoot) {
             final Button bpar = new Button(this);
@@ -356,9 +360,6 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
             lyt.addView(line);
 
         }
-
-
-
     }
 
     //from https://stackoverflow.com/questions/31421779/androidhow-to-show-time-on-my-music-player
@@ -673,6 +674,11 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
         prevPosition = curPosition;
         curPosition = curChapter.getOnYes();
         fix_chapter();
+        boolean isRoot = false;
+        if (curPosition <= 1){
+            isRoot = true;
+        }
+        createNode(isRoot, curChapter.getTitle(), curChapter.isEnd());
         musicSrv.setList(songList);
         musicSrv.playSong(0);
     }
@@ -681,6 +687,11 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
         prevPosition = curPosition;
         curPosition = curChapter.getOnNo();
         fix_chapter();
+        boolean isRoot = false;
+        if (curPosition <= 1){
+            isRoot = true;
+        }
+        createNode(isRoot, curChapter.getTitle(), curChapter.isEnd());
         musicSrv.setList(songList);
         musicSrv.playSong(0);
     }
@@ -699,17 +710,19 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
                     String yesNoText = text.get(0);
 
                     if (yesNoText.equalsIgnoreCase("Yes")) {
-                        prevPosition = curPosition;
+                        /*prevPosition = curPosition;
                         curPosition = curChapter.getOnYes();
-                        fix_chapter();
+                        fix_chapter();*/
+                        onYes();
 
                     } else {
-                        prevPosition = curPosition;
+                        /*prevPosition = curPosition;
                         curPosition = curChapter.getOnNo();
-                        fix_chapter();
+                        fix_chapter();*/
+                        onNo();
                     }
-                    musicSrv.setList(songList);
-                    musicSrv.playSong(0);
+                    //musicSrv.setList(songList);
+                    //musicSrv.playSong(0);
                 }
                 break;
             }
