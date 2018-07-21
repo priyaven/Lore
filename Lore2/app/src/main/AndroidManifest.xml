@@ -28,10 +28,6 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" />
-        <activity
-            android:name=".PlayChapterActivity"
-            android:label="@string/title_activity_play_chapter"
-            android:theme="@style/AppTheme.NoActionBar" />
 
         <service
             android:name=".MusicService"
@@ -45,16 +41,6 @@
             android:name=".StoryDescription"
             android:label="@string/description"
             android:theme="@style/AppTheme.DescriptionPopup" />
-        <activity
-            android:name=".CircleGraphActivity"
-            android:label="@string/title_activity_circle_graph"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
-           <!-- <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter> -->
-        </activity>
     </application>
 
 </manifest>
