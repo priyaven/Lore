@@ -18,6 +18,7 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.media.Image;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
 import android.provider.ContactsContract;
@@ -43,6 +44,7 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.PopupMenu;
 import android.widget.PopupMenu.OnMenuItemClickListener;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -395,8 +397,17 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
         prevChapter = curChapter;
         curChapter = curStory.chapters.get(new Integer(curPosition));
         songList = new ArrayList<String>();
-        songList.add(curChapter.mp3File);
-        songList.add(curChapter.mp3QuestionFile);
+        File mp3file = new File(Environment.getExternalStorageDirectory()+ File.separator +curChapter.localChapterPath);
+        File mp3Qfile = new File(Environment.getExternalStorageDirectory()+ File.separator + curChapter.localChapterQPath);
+        if((!mp3file.exists()) || (!mp3Qfile.exists())){
+            // TODO add try-catch.
+            boolean success = curChapter.downloadChapter();
+            // TODO if this is false, do stuff.
+        }
+        //songList.add(curChapter.mp3File);
+        //songList.add(curChapter.mp3QuestionFile);
+        songList.add(mp3file.getAbsolutePath());
+        songList.add(mp3Qfile.getAbsolutePath());
 
         TextView chapterTitle = (TextView) findViewById(R.id.chapterTitle);
         chapterTitle.setText(curChapter.getTitle());
