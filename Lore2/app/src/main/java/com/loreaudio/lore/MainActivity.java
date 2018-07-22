@@ -1,6 +1,7 @@
 package com.loreaudio.lore;
 
 import android.content.Intent;
+import android.os.Environment;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -19,6 +20,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -26,12 +28,17 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import com.loreaudio.lore.DownloadStories.*;
+
 public class MainActivity extends AppCompatActivity {
 
     ListView eachstory;
     ArrayList<Story> storylist;
     NavigationView navView;
     DrawerLayout drawer;
+
+    final String storiesXml = "https://s3-us-west-1.amazonaws.com/loreaudio/stories.xml";
+    final String localXml = "Lore Audio/stories.xml";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,9 +76,16 @@ public class MainActivity extends AppCompatActivity {
         //getResources().getStringArray(R.array.stories)));
 
         try {
+            File xmlFile = new File(Environment.getExternalStorageDirectory()+ File.separator + localXml);
+            if(!xmlFile.exists()) {
+                // TODO check if file is too old, or malformed.
+                DownloadStories dl = new DownloadStories();
+                dl.downloadStory(storiesXml, localXml);
+            }
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
-            Document doc = builder.parse(getResources().openRawResource(R.raw.stories));
+            Document doc = builder.parse(xmlFile);
+            //Document doc = builder.parse(getResources().openRawResource(R.raw.stories));
             NodeList storyNodes = doc.getElementsByTagName("story");
             storylist = Story.storyObjects(storyNodes);
             StoryAdapter storyAdapter = new StoryAdapter(MainActivity.this, storylist);
