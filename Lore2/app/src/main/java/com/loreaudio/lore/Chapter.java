@@ -6,6 +6,8 @@ import org.w3c.dom.NodeList;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import com.loreaudio.lore.DownloadStories;
+
 /**
  * Created by priya on 9/9/2017.
  */
@@ -17,6 +19,16 @@ public class Chapter implements Serializable {
     String title;
     String mp3File;
     String mp3QuestionFile;
+    String downloadFolder;
+
+    String storyPath;
+    String chapterPath;
+    String chapterQpath;
+
+    String awsS3path = "https://s3-us-west-1.amazonaws.com/loreaudio/";
+
+    String localChapterPath;
+    String localChapterQPath;
 
     public Chapter(int id, String title, int storyId) {
         this.id = id;
@@ -25,11 +37,18 @@ public class Chapter implements Serializable {
         this.isEnd = false;
         this.onYes = 0;
         this.onNo = 0;
+        this.storyPath = "story_" + String.valueOf(storyId);
+        this.chapterPath = "chapter" + String.valueOf(this.id) + ".mp3";
+        this.chapterQpath =  "chapter" + String.valueOf(this.id) +"question" + ".mp3";
         //this.mp3File = "http://loreaudio.com/story_" + String.valueOf(storyId) + "/chapter" + String.valueOf(this.id);
-        this.mp3File = "https://s3-us-west-1.amazonaws.com/loreaudio/story_" + String.valueOf(storyId) + "/chapter" + String.valueOf(this.id);
-        this.mp3QuestionFile = this.mp3File + "question";
-        this.mp3File += ".mp3";
-        this.mp3QuestionFile += ".mp3";
+        this.mp3File = awsS3path + storyPath + "/" + chapterPath; //"https://s3-us-west-1.amazonaws.com/loreaudio/story_" + String.valueOf(storyId) + "/chapter" + String.valueOf(this.id);
+        this.mp3QuestionFile = awsS3path + storyPath + "/" + chapterPath; //this.mp3File + "question";
+        //this.mp3File += ".mp3";
+        //this.mp3QuestionFile += ".mp3";
+
+        this.downloadFolder = "Lore Audio/" + storyPath;
+        this.localChapterPath = this.downloadFolder + "/" + this.chapterPath;
+        this.localChapterQPath = this.downloadFolder + "/" + this.chapterQpath;
 
     }
 
@@ -74,6 +93,19 @@ public class Chapter implements Serializable {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public boolean downloadChapter(){
+        try{
+            DownloadStories dl = new DownloadStories();
+            dl.downloadStory(this.mp3File, this.localChapterPath);
+            dl.downloadStory(this.mp3QuestionFile, this.localChapterQPath);
+
+        } catch (Exception e) {
+            System.out.println(e.getStackTrace());
+            return false;
+        }
+        return true;
     }
 
     public static ArrayList<Chapter> chapterObjects(NodeList chapterNodes, int storyId) {

@@ -15,12 +15,11 @@ public class DownloadStories
 {
 
     //String url = "https://s3-us-west-1.amazonaws.com/loreaudio/story_";
-    String url = "http://www.hubharp.com/web_sound/WalloonLilliShort.mp3";
-    File file;
 
-    public void DownloadStory(String storyUrl, String path)
+    public void downloadStory(String storyUrl, String path)
     {
-        new Download().execute(storyUrl, path);
+        Download download = new Download();
+        download.execute(storyUrl, path);
     }
 
     private InputStream openHTTPConnection(String myurl)
@@ -68,11 +67,11 @@ public class DownloadStories
             try
             {
 
-                  String loreDir = Environment.getExternalStorageDirectory()+ File.separator + "Stories" + strings[1];
+                  String loreDir = Environment.getExternalStorageDirectory()+ File.separator + strings[1];
                   File target = new File(loreDir);
                   File parent = target.getParentFile();
 
-                  if (!target.exists() && !target.mkdirs())
+                  if (!parent.exists() && !parent.mkdirs())
                   {
                       throw new IllegalStateException("Couldn't create directory: " + parent);
                   }
@@ -103,7 +102,6 @@ public class DownloadStories
 //                }
 
                 InputStream is = openHTTPConnection(strings[0]);
-                file = new File(loreDir, target.getName());
                 FileOutputStream os = new FileOutputStream(target);
                 byte[] buf = new byte[4096];
 

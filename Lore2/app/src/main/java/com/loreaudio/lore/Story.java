@@ -10,6 +10,8 @@ import org.w3c.dom.NodeList;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.StringTokenizer;
 
 /**
@@ -23,6 +25,7 @@ public class Story implements Serializable{
     String imgfile;
     String description;
     int firstChapterId = Integer.MAX_VALUE;
+
     HashMap<Integer, Chapter> chapters;
 
     public static ArrayList<Story> storyObjects(NodeList storyNodes) {
@@ -101,6 +104,18 @@ public class Story implements Serializable{
         if(chapter_id < this.firstChapterId){
             this.firstChapterId = chapter_id;
         }
+    }
+
+    public boolean downloadStory() {
+        Iterator<Map.Entry<Integer, Chapter>> itr = chapters.entrySet().iterator();
+        while(itr.hasNext()){
+            Map.Entry<Integer, Chapter> entry = itr.next();
+            boolean success = entry.getValue().downloadChapter();
+            if(!success){
+                return false;
+            }
+        }
+        return true;
     }
 
     public String getAuthor() {

@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -33,7 +34,7 @@ public class StoryAdapter extends ArrayAdapter<Story> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        Story story = getItem(position);
+        final Story story = getItem(position);
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.content_story_layout, parent, false);
         }
@@ -45,6 +46,18 @@ public class StoryAdapter extends ArrayAdapter<Story> {
         // Populate the data into the template view using the data object
         title.setText(story.getTitle().trim());
         author.setText(story.getAuthor().trim());
+
+        Button downloadButton = (Button) convertView.findViewById(R.id.download);
+        downloadButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                story.downloadStory();
+                //tv.setText(months[rand.nextInt(12)]);
+                //tv.setTextColor(Color.rgb(rand.nextInt(255)+1, rand.nextInt(255)+1, rand.nextInt(255)+1));
+            }
+        });
 
         TextView storyid_hidden = (TextView) convertView.findViewById(R.id.hiddenStoryId);
         storyid_hidden.setText(Integer.toString(position));
