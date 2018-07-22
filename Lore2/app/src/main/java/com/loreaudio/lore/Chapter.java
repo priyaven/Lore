@@ -42,7 +42,7 @@ public class Chapter implements Serializable {
         this.chapterQpath =  "chapter" + String.valueOf(this.id) +"question" + ".mp3";
         //this.mp3File = "http://loreaudio.com/story_" + String.valueOf(storyId) + "/chapter" + String.valueOf(this.id);
         this.mp3File = awsS3path + storyPath + "/" + chapterPath; //"https://s3-us-west-1.amazonaws.com/loreaudio/story_" + String.valueOf(storyId) + "/chapter" + String.valueOf(this.id);
-        this.mp3QuestionFile = awsS3path + storyPath + "/" + chapterPath; //this.mp3File + "question";
+        this.mp3QuestionFile = awsS3path + storyPath + "/" + chapterQpath; //this.mp3File + "question";
         //this.mp3File += ".mp3";
         //this.mp3QuestionFile += ".mp3";
 
