@@ -69,6 +69,11 @@ public class Chapter implements Serializable {
 
     public void setEnd(boolean end) {
         isEnd = end;
+        if(this.isEnd){
+            this.chapterQpath = null;
+            this.localChapterQPath = null;
+            this.mp3QuestionFile = null;
+        }
     }
 
     public int getOnYes() {
@@ -99,7 +104,9 @@ public class Chapter implements Serializable {
         try{
             DownloadStories dl = new DownloadStories();
             dl.downloadStory(this.mp3File, this.localChapterPath);
-            dl.downloadStory(this.mp3QuestionFile, this.localChapterQPath);
+            if(!isEnd) {
+                dl.downloadStory(this.mp3QuestionFile, this.localChapterQPath);
+            }
 
         } catch (Exception e) {
             System.out.println(e.getStackTrace());
