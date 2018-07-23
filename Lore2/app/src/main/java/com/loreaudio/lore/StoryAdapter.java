@@ -1,6 +1,8 @@
 package com.loreaudio.lore;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -62,10 +64,12 @@ public class StoryAdapter extends ArrayAdapter<Story> {
         TextView storyid_hidden = (TextView) convertView.findViewById(R.id.hiddenStoryId);
         storyid_hidden.setText(Integer.toString(position));
 
-        int imageResource = getContext().getResources().getIdentifier(story.getImgfile(), null, getContext().getPackageName());
+        //int imageResource = getContext().getResources().getIdentifier(story.getImgfile(), null, getContext().getPackageName());
 
-        Drawable resimg = getContext().getResources().getDrawable(imageResource);
-        imgButton.setImageDrawable(resimg);
+        //Drawable resimg = getContext().getResources().getDrawable(imageResource);
+        //imgButton.setImageDrawable(resimg);
+        Bitmap bmp = BitmapFactory.decodeFile(story.getImgfile());
+        imgButton.setImageBitmap(bmp);
 
         // Return the completed view to render on screen
         return convertView;

@@ -1,5 +1,6 @@
 package com.loreaudio.lore;
 
+import android.os.Environment;
 import android.widget.TextView;
 
 import org.w3c.dom.DOMImplementationList;
@@ -7,6 +8,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,6 +21,15 @@ import java.util.StringTokenizer;
  */
 
 public class Story implements Serializable{
+    final String awsS3path = "https://s3-us-west-1.amazonaws.com/loreaudio/";
+    final String internalStorage = Environment.getExternalStorageDirectory()+ File.separator ;
+
+    String storyPath;
+    String imagePath;
+
+    String imgUrl;
+    String localImage;
+
     int id;
     String title;
     String author;
@@ -66,6 +77,10 @@ public class Story implements Serializable{
         this.description = description;
         this.imgfile = "@drawable/s" + String.valueOf(this.id);
         this.firstChapterId = firstChapterId;
+        this.storyPath = "story_" + String.valueOf(this.id);
+        this.imagePath = storyPath + File.separator + "cover.jpg";
+        this.imgUrl = this.awsS3path + this.imagePath;
+        this.localImage = "Lore Audio" + File.separator + this.imagePath;
     }
 
     public Story(int id, String title, String author, String description) {
@@ -73,9 +88,13 @@ public class Story implements Serializable{
         this.title = title;
         this.author = author;
         this.description = description;
-        this.imgfile = "@drawable/s" + String.valueOf(this.id);
+        this.imgfile =  "@drawable/s" + String.valueOf(this.id);
         this.chapters = new HashMap<Integer, Chapter>();
         this.firstChapterId = Integer.MAX_VALUE;
+        this.storyPath = "story_" + String.valueOf(this.id);
+        this.imagePath = storyPath + File.separator + "cover.jpg";
+        this.imgUrl = this.awsS3path + this.imagePath;
+        this.localImage = "Lore Audio" + File.separator + this.imagePath;
     }
 
     public int getId() {
@@ -122,7 +141,9 @@ public class Story implements Serializable{
         return author;
     }
 
-    public String getImgfile() { return this.imgfile; }
+    public String getImgfile() {
+        downloadCover();
+        return internalStorage + this.localImage; }
 
     public void setAuthor(String author) {
         this.author = author;
@@ -139,4 +160,14 @@ public class Story implements Serializable{
     }
 
     public int getFirstChapterId() { return this.firstChapterId; }
+
+    public boolean downloadCover() {
+        File localImgFile = new File(internalStorage + localImage);
+        if(!localImgFile.exists()){
+            DownloadStories dl = new DownloadStories();
+            dl.downloadStory(this.imgUrl, this.localImage);
+            //TODO add try catch.
+        }
+        return true;
+    }
 }
