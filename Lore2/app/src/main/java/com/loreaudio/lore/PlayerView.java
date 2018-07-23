@@ -71,11 +71,22 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
     private Handler mHandler;
     private ImageButton playPauseButton;
 
+    boolean pausedBecauseYesNo = false;
+    boolean activityPaused = false;
+
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             // Extract data included in the Intent
+            int chid = intent.getIntExtra("chid", 0);
+            if(chid != curChapter.id){
+                return;
+            }
             if (!curChapter.isEnd()) {
+                Log.i("BroadcastReceiver", "id:" + curChapter.getId() + " isend:" + curChapter.isEnd());
+                if(prevChapter != null) {
+                    Log.i("BroadcastReceiver", "previd:" + prevChapter.getId() + " isend:" + prevChapter.isEnd());
+                }
                 int audiotype = intent.getIntExtra("audiotype", 999);
                 if (audiotype == 0) {
                     musicSrv.playSong(1);
@@ -89,11 +100,12 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
 
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
+            Log.i("onServiceConnected", "Adding songlist" + songList.get(0));
             MusicService.MusicBinder binder = (MusicService.MusicBinder) service;
             //get service
             musicSrv = binder.getService();
             //pass list
-            musicSrv.setList(songList);
+            musicSrv.setList(songList, curChapter.id);
             musicBound = true;
 
         }
@@ -143,11 +155,11 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
         }
     };
 
-    @Override
+    /*@Override
     public void onBackPressed() {
         Intent backToMain = new Intent(this, MainActivity.class);
         startActivity(backToMain);
-    }
+    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -157,6 +169,8 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
         curStory = (Story) getIntent().getSerializableExtra("CurStory");
         curPosition = (int) getIntent().getIntExtra("CurPosition", 1);
         prevPosition = (int) getIntent().getIntExtra("PrevPosition", 0);
+
+        Log.i("OnCreate:", Integer.toString(curPosition) + " " + Integer.toString(prevPosition));
 
         //ImageView imgview = (ImageView) findViewById(R.id.coverImage);
         //int imgsrc = getResources().getIdentifier(curStory.getImgfile(), null, getPackageName());
@@ -199,7 +213,8 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
 
             @Override
             public void run() {
-                if ((musicSrv != null)) {
+                if ((musicSrv != null) && (!activityPaused)) {
+                    Log.i("Playerview uithread", "Current chapter:" + Integer.toString(curChapter.id));
                     if (musicSrv.isPng()) {
                         int position = getCurrentPosition();
                         int duration = getDuration();
@@ -345,7 +360,7 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
             lyt.addView(bpar);
 
 
-            bpar.setText("parent");
+            bpar.setText(this.prevChapter.getTitle());
 
             ImageView line = new ImageView(this);
             Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
@@ -394,7 +409,9 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
     }
 
     private void fix_chapter() {
-        prevChapter = curChapter;
+        if(prevPosition != 0) {
+            prevChapter = curStory.chapters.get(new Integer(prevPosition));
+        }
         curChapter = curStory.chapters.get(new Integer(curPosition));
         songList = new ArrayList<String>();
         File mp3file = new File(Environment.getExternalStorageDirectory()+ File.separator +curChapter.localChapterPath);
@@ -407,7 +424,9 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
         //songList.add(curChapter.mp3File);
         //songList.add(curChapter.mp3QuestionFile);
         songList.add(mp3file.getAbsolutePath());
-        songList.add(mp3Qfile.getAbsolutePath());
+        if(!curChapter.isEnd()) {
+            songList.add(mp3Qfile.getAbsolutePath());
+        }
 
         TextView chapterTitle = (TextView) findViewById(R.id.chapterTitle);
         chapterTitle.setText(curChapter.getTitle());
@@ -428,9 +447,40 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
         super.onStart();
         if (playIntent == null) {
             playIntent = new Intent(this, MusicService.class);
+            playIntent.putExtra("CurChapter", this.curChapter.id);
+            playIntent.putExtra("fromResume", false);
             bindService(playIntent, musicConnection, Context.BIND_AUTO_CREATE);
             startService(playIntent);
         }
+    }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+        activityPaused = true;
+        Log.i("On Pause", "Pausing... pausedbecauseyesno:" + Boolean.toString(pausedBecauseYesNo) + " curchapter:" + Integer.toString(curChapter.id));
+        if(!pausedBecauseYesNo){
+            controller.setEnabled(false);
+            unbindService(musicConnection);
+            stopService(playIntent);
+        }
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        activityPaused = false;
+        if (playIntent == null) {
+            Log.i("on Resume Chapter:" + Integer.toString(curChapter.id), "Intent is null" );
+            playIntent = new Intent(this, MusicService.class);
+        } else {
+            Log.i("on Resume Chapter:" + Integer.toString(curChapter.id), "Intent is NOT null");
+        }
+        playIntent.putExtra("fromResume", true);
+        bindService(playIntent, musicConnection, Context.BIND_AUTO_CREATE);
+        controller.setEnabled(true);
+        startService(playIntent);
+
     }
 
     /* seek bar stuff from
@@ -663,6 +713,8 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
 
 
     private void yesNoListener() {
+        pausedBecauseYesNo = true;
+        Log.i("YesNoListener", Integer.toString(curChapter.id));
         Intent intent = new Intent(
                 RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
 
@@ -676,7 +728,7 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
                     Toast.LENGTH_SHORT);
             t.show();
         }
-
+        Log.i("YesNoListener", "Done with it");
     }
 
     public void listenToYesNo(View view) {
@@ -684,6 +736,7 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
     }
 
     private void onYes(){
+        /*
         prevPosition = curPosition;
         curPosition = curChapter.getOnYes();
         fix_chapter();
@@ -693,10 +746,12 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
         }
         createNode(isRoot, curChapter.getTitle(), curChapter.isEnd());
         musicSrv.setList(songList);
-        musicSrv.playSong(0);
+        musicSrv.playSong(0);*/
+        playStory(curChapter.getOnYes());
     }
 
     private void onNo(){
+        /*
         prevPosition = curPosition;
         curPosition = curChapter.getOnNo();
         fix_chapter();
@@ -706,7 +761,8 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
         }
         createNode(isRoot, curChapter.getTitle(), curChapter.isEnd());
         musicSrv.setList(songList);
-        musicSrv.playSong(0);
+        musicSrv.playSong(0);*/
+        playStory(curChapter.getOnNo());
     }
 
     @Override
@@ -741,6 +797,21 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
             }
 
         }
+    }
+
+    // public void playNextChapter(View view) {
+    public void playStory(int newPosition) {
+        //songList = new ArrayList<String>();
+        //musicSrv.setList(songList);
+        //controller.setEnabled(false);
+        Log.i("PlayView:playstory", "Starting new Player activity with new position " + Integer.toString(newPosition));
+        Intent intent = new Intent(this, PlayerView.class);
+        intent.putExtra("CurStory", this.curStory);
+        intent.putExtra("CurPosition", newPosition);
+        intent.putExtra("PrevPosition", this.curPosition);
+        Log.i("playstory", "unsetting pausedbecauseyesno");
+        pausedBecauseYesNo = false;
+        startActivity(intent);
     }
 }
 

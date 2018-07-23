@@ -10,6 +10,7 @@ import android.os.IBinder;
 import android.os.PowerManager;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -24,6 +25,8 @@ public class MusicService extends Service implements
     private MediaPlayer player;
     //song list
     private ArrayList<String> songs;
+    private int curChapterid;
+    private int boundChapterid;
     //current position
     private int songPosn;
 
@@ -57,6 +60,7 @@ public class MusicService extends Service implements
         player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
+                Log.i("OnCompletion Lore", "Lastplayedsong:" + Integer.toString(lastPlayedSong));
                 audioDone(lastPlayedSong);
             }
         });
@@ -66,15 +70,22 @@ public class MusicService extends Service implements
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
+        this.boundChapterid = intent.getIntExtra("CurChapter", 0);
+        Log.i("MusicService:onBind", "Binding chapter " + Integer.toString(this.boundChapterid));
         return musicBind;
 
     }
 
     @Override
     public boolean onUnbind(Intent intent){
-        player.stop();
-        player.release();
-        return false;
+        super.onUnbind(intent);
+        int intentboundid = intent.getIntExtra("CurChapter", 0);
+        Log.i("MusicService:onUnbind", "Curchapter:" + Integer.toString(intentboundid) + " boundchapter:" + Integer.toString(this.boundChapterid));
+        if((intentboundid == this.boundChapterid) && (intentboundid !=0)) { // check to make sure unbind happens only when that chapter's activity instance calls unbind.
+            player.stop();
+            player.release();
+        }
+        return true; // True means you want onrebind called. was originally false.
     }
 
     public void playSong(int i){
@@ -94,11 +105,19 @@ public class MusicService extends Service implements
         lastPlayedSong = i;
     }
 
-    public void setList(ArrayList<String> theSongs){
+    public void setList(ArrayList<String> theSongs, int chid){
         songs=theSongs;
-        if(lastPlayedSong == 999) {
+        if((curChapterid <= chid) && (lastPlayedSong == 0)){
+            playSong(1);
+        } else {
             playSong(0);
         }
+        curChapterid = chid;
+       /* if(lastPlayedSong > 0) {//if(lastPlayedSong == 999) {
+            playSong(0);
+        } else {
+            playSong(1);
+        }*/
     }
 
     public class MusicBinder extends Binder {
@@ -116,12 +135,17 @@ public class MusicService extends Service implements
     }
 
     public boolean isPng(){
-        return player.isPlaying();
+        if(player !=null) {
+            return player.isPlaying();
+        }
+        return false;
     }
 
     public void pausePlayer(){
         player.pause();
     }
+
+    public void stopPlayer() { player.stop();}
 
     public void seek(int posn){
         player.seekTo(posn);
@@ -176,6 +200,7 @@ public class MusicService extends Service implements
         Intent intent = new Intent("audio-done");
         // add data
         intent.putExtra("audiotype", i);
+        intent.putExtra("chid", curChapterid);
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
 
