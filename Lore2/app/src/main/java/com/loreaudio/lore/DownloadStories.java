@@ -1,7 +1,11 @@
 package com.loreaudio.lore;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Environment;
+import android.util.Log;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -16,9 +20,9 @@ public class DownloadStories
 
     //String url = "https://s3-us-west-1.amazonaws.com/loreaudio/story_";
 
-    public void downloadStory(String storyUrl, String path)
+    public void downloadStory(String storyUrl, String path, Context ctx)
     {
-        Download download = new Download();
+        Download download = new Download(ctx);
         download.execute(storyUrl, path);
     }
 
@@ -53,13 +57,31 @@ public class DownloadStories
         return (is);
     }
 
-    private class Download extends AsyncTask<String, Integer, String>
-    {
+    private class Download extends AsyncTask<String, Integer, String> {
+
+        private ProgressDialog progressDialog;
+
+        public Download(Context ctx) {
+            super();
+            this.progressDialog = new ProgressDialog(ctx);
+        }
+
         @Override
         protected void onPreExecute()
         {
             super.onPreExecute();
+            progressDialog.setMessage("Doing something, please wait.");
+            progressDialog.show();
         }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            if (progressDialog.isShowing()) {
+                progressDialog.dismiss();
+            }
+        }
+
 
         @Override
         protected String doInBackground(String... strings)
@@ -69,7 +91,10 @@ public class DownloadStories
 
                   String loreDir = Environment.getExternalStorageDirectory()+ File.separator + strings[1];
                   File target = new File(loreDir);
-                  File parent = target.getParentFile();
+                  Log.i("In doinbackground","Target file:" + loreDir);
+                  Log.i("In doinbackground","Url:" + strings[0]);
+
+                File parent = target.getParentFile();
 
                   if (!parent.exists() && !parent.mkdirs())
                   {

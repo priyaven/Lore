@@ -55,7 +55,7 @@ public class StoryAdapter extends ArrayAdapter<Story> {
             @Override
             public void onClick(View v)
             {
-                story.downloadStory();
+                story.downloadStory(getContext());
                 //tv.setText(months[rand.nextInt(12)]);
                 //tv.setTextColor(Color.rgb(rand.nextInt(255)+1, rand.nextInt(255)+1, rand.nextInt(255)+1));
             }
@@ -68,7 +68,7 @@ public class StoryAdapter extends ArrayAdapter<Story> {
 
         //Drawable resimg = getContext().getResources().getDrawable(imageResource);
         //imgButton.setImageDrawable(resimg);
-        Bitmap bmp = BitmapFactory.decodeFile(story.getImgfile());
+        Bitmap bmp = BitmapFactory.decodeFile(story.getImgfile(getContext()));
         imgButton.setImageBitmap(bmp);
 
         // Return the completed view to render on screen

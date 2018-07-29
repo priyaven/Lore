@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
             if(!xmlFile.exists()) {
                 // TODO check if file is too old, or malformed.
                 DownloadStories dl = new DownloadStories();
-                dl.downloadStory(storiesXml, localXml);
+                dl.downloadStory(storiesXml, localXml, MainActivity.this);
             }
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();

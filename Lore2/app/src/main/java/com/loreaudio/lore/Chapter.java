@@ -1,5 +1,7 @@
 package com.loreaudio.lore;
 
+import android.content.Context;
+
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
@@ -100,12 +102,12 @@ public class Chapter implements Serializable {
         this.title = title;
     }
 
-    public boolean downloadChapter(){
+    public boolean downloadChapter(Context ctx){
         try{
             DownloadStories dl = new DownloadStories();
-            dl.downloadStory(this.mp3File, this.localChapterPath);
+            dl.downloadStory(this.mp3File, this.localChapterPath, ctx);
             if(!isEnd) {
-                dl.downloadStory(this.mp3QuestionFile, this.localChapterQPath);
+                dl.downloadStory(this.mp3QuestionFile, this.localChapterQPath, ctx);
             }
 
         } catch (Exception e) {

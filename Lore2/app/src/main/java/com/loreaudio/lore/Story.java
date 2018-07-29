@@ -1,5 +1,6 @@
 package com.loreaudio.lore;
 
+import android.content.Context;
 import android.os.Environment;
 import android.widget.TextView;
 
@@ -125,11 +126,11 @@ public class Story implements Serializable{
         }
     }
 
-    public boolean downloadStory() {
+    public boolean downloadStory(Context ctx) {
         Iterator<Map.Entry<Integer, Chapter>> itr = chapters.entrySet().iterator();
         while(itr.hasNext()){
             Map.Entry<Integer, Chapter> entry = itr.next();
-            boolean success = entry.getValue().downloadChapter();
+            boolean success = entry.getValue().downloadChapter(ctx);
             if(!success){
                 return false;
             }
@@ -141,8 +142,8 @@ public class Story implements Serializable{
         return author;
     }
 
-    public String getImgfile() {
-        downloadCover();
+    public String getImgfile(Context ctx) {
+        downloadCover(ctx);
         return internalStorage + this.localImage; }
 
     public void setAuthor(String author) {
@@ -161,11 +162,11 @@ public class Story implements Serializable{
 
     public int getFirstChapterId() { return this.firstChapterId; }
 
-    public boolean downloadCover() {
+    public boolean downloadCover(Context ctx) {
         File localImgFile = new File(internalStorage + localImage);
         if(!localImgFile.exists()){
             DownloadStories dl = new DownloadStories();
-            dl.downloadStory(this.imgUrl, this.localImage);
+            dl.downloadStory(this.imgUrl, this.localImage, ctx);
             //TODO add try catch.
         }
         return true;
