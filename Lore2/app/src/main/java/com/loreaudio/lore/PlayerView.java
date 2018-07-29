@@ -71,7 +71,6 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
     private Handler mHandler;
     private ImageButton playPauseButton;
 
-    boolean pausedBecauseYesNo = false;
     boolean activityPaused = false;
 
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
@@ -158,8 +157,6 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        //Intent backToMain = new Intent(this, MainActivity.class);
-        //startActivity(backToMain);
         Log.i("OnBackPressed", "Pausing.... curchapter:" + Integer.toString(curChapter.id));
         pauseCurActivity();
 
@@ -188,11 +185,6 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
         prevPosition = (int) getIntent().getIntExtra("PrevPosition", 0);
 
         Log.i("OnCreate:", Integer.toString(curPosition) + " " + Integer.toString(prevPosition));
-
-        //ImageView imgview = (ImageView) findViewById(R.id.coverImage);
-        //int imgsrc = getResources().getIdentifier(curStory.getImgfile(), null, getPackageName());
-        //Drawable resimg = getResources().getDrawable(imgsrc);
-        //imgview.setBackground(resimg);
 
         fix_chapter();
         boolean isRoot = true;
@@ -398,7 +390,7 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
         }
     }
 
-    //from https://stackoverflow.com/questions/31421779/androidhow-to-show-time-on-my-music-player
+    // from https://stackoverflow.com/questions/31421779/androidhow-to-show-time-on-my-music-player
     private  String milliSecondsToTimer(long milliseconds) {
         String finalTimerString = "";
         String secondsString = "";
@@ -433,13 +425,12 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
         songList = new ArrayList<String>();
         File mp3file = new File(Environment.getExternalStorageDirectory()+ File.separator +curChapter.localChapterPath);
         File mp3Qfile = new File(Environment.getExternalStorageDirectory()+ File.separator + curChapter.localChapterQPath);
-        if((!mp3file.exists()) || (!mp3Qfile.exists())){
+        if((!mp3file.exists()) || (!curChapter.isEnd() && !mp3Qfile.exists())){
             // TODO add try-catch.
             boolean success = curChapter.downloadChapter(PlayerView.this);
             // TODO if this is false, do stuff.
         }
-        //songList.add(curChapter.mp3File);
-        //songList.add(curChapter.mp3QuestionFile);
+        // TODO if file is still downloading after a few secconds, start streaming it.
         songList.add(mp3file.getAbsolutePath());
         if(!curChapter.isEnd()) {
             songList.add(mp3Qfile.getAbsolutePath());
@@ -448,15 +439,8 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
         TextView chapterTitle = (TextView) findViewById(R.id.chapterTitle);
         chapterTitle.setText(curChapter.getTitle());
 
-        //ImageButton prev = (ImageButton) findViewById(R.id.prev_ch);
-        //prev.setEnabled(true);
+        // TODO if current chapter is_end, do something about it in the view.
 
-        if (curChapter.isEnd()) {
-            //ImageButton skip = (ImageButton) findViewById(R.id.skip);
-            //skip.setEnabled(false);
-            //Button pause = (Button) findViewById(R.id.playpause);
-            //pause.setEnabled(false);
-        }
     }
 
     @Override
@@ -465,30 +449,10 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
         if (playIntent == null) {
             playIntent = new Intent(this, MusicService.class);
             playIntent.putExtra("CurChapter", this.curChapter.id);
-            playIntent.putExtra("fromResume", false);
+            playIntent.putExtra("fromRestart", false);
             bindService(playIntent, musicConnection, Context.BIND_AUTO_CREATE);
             startService(playIntent);
         }
-    }
-
-    @Override
-    protected void onPause(){
-        super.onPause();
-        Log.i("PlayActivity:OnPause", "Activity paused for some reason. Curchapter:" + Integer.toString(curChapter.id));
-        /*activityPaused = true;
-        Log.i("On Pause", "Pausing... pausedbecauseyesno:" + Boolean.toString(pausedBecauseYesNo) + " curchapter:" + Integer.toString(curChapter.id));
-        if(!pausedBecauseYesNo){
-            controller.setEnabled(false);
-            unbindService(musicConnection);
-            stopService(playIntent);
-        }*/
-    }
-
-    @Override
-    protected void onStop(){
-        super.onStop();
-        Log.i("PlayActivity:OnStop", "Activity stopped. NOT Calling pauseCurActivity CurChapter:" + Integer.toString(curChapter.id));
-        //pauseCurActivity();
     }
 
     @Override
@@ -498,36 +462,17 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
         if(activityPaused) {
             activityPaused = false;
             if (playIntent == null) {
-                Log.i("on Resume Chapter:" + Integer.toString(curChapter.id), "Intent is null");
+                Log.i("on Restart Chapter:" + Integer.toString(curChapter.id), "Intent is null");
                 playIntent = new Intent(this, MusicService.class);
             } else {
-                Log.i("on Resume Chapter:" + Integer.toString(curChapter.id), "Intent is NOT null");
+                Log.i("on Restart Chapter:" + Integer.toString(curChapter.id), "Intent is NOT null");
             }
-            playIntent.putExtra("fromResume", true);
+            playIntent.putExtra("fromRestart", true);
             bindService(playIntent, musicConnection, Context.BIND_AUTO_CREATE);
             controller.setEnabled(true);
             startService(playIntent);
         }
     }
-
-    /*@Override
-    protected void onResume(){
-        super.onResume();
-        if(activityPaused) {
-            activityPaused = false;
-            if (playIntent == null) {
-                Log.i("on Resume Chapter:" + Integer.toString(curChapter.id), "Intent is null");
-                playIntent = new Intent(this, MusicService.class);
-            } else {
-                Log.i("on Resume Chapter:" + Integer.toString(curChapter.id), "Intent is NOT null");
-            }
-            playIntent.putExtra("fromResume", true);
-            bindService(playIntent, musicConnection, Context.BIND_AUTO_CREATE);
-            controller.setEnabled(true);
-            startService(playIntent);
-        }
-
-    }*/
 
     /* seek bar stuff from
     https://github.com/brightec/ExampleMediaController/blob/master/src/uk/co/brightec/example/mediacontroller/VideoControllerView.java
@@ -569,8 +514,6 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
                 long pos = 100L * position / duration;
                 mProgress.setProgress((int) pos);
             }
-            //int percent = mPlayer.getBufferPercentage();
-            //mProgress.setSecondaryProgress(percent * 10);
         }
         /*
         if (mEndTime != null)
@@ -668,11 +611,11 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
         return 0;
     }
 
-
+    // TODO add button to give user the option to choose this
     public void songpicked(View view) {
         musicSrv.playSong(0);
     }
-
+    // TODO add button to give user the option to choose this.
     public void goToQuestion(View view) {
         musicSrv.playSong(1);
 
@@ -707,8 +650,8 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
     public void toggleBookmark(View view){
         ImageButton bookmark = (ImageButton) findViewById(R.id.bookmark_button);
         bookmark.setActivated(!bookmark.isActivated());
-        /* TODO
-         Add modifying chapter bookmarks and writing to server when the time comes.
+        /*
+        TODO Add modifying chapter bookmarks and writing to server when the time comes.
          */
     }
 
@@ -756,10 +699,7 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
         }
     };
 
-
-
     private void yesNoListener() {
-        pausedBecauseYesNo = true;
         Log.i("YesNoListener", Integer.toString(curChapter.id));
         Intent intent = new Intent(
                 RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
@@ -782,32 +722,10 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
     }
 
     private void onYes(){
-        /*
-        prevPosition = curPosition;
-        curPosition = curChapter.getOnYes();
-        fix_chapter();
-        boolean isRoot = false;
-        if (curPosition <= 1){
-            isRoot = true;
-        }
-        createNode(isRoot, curChapter.getTitle(), curChapter.isEnd());
-        musicSrv.setList(songList);
-        musicSrv.playSong(0);*/
         playStory(curChapter.getOnYes());
     }
 
     private void onNo(){
-        /*
-        prevPosition = curPosition;
-        curPosition = curChapter.getOnNo();
-        fix_chapter();
-        boolean isRoot = false;
-        if (curPosition <= 1){
-            isRoot = true;
-        }
-        createNode(isRoot, curChapter.getTitle(), curChapter.isEnd());
-        musicSrv.setList(songList);
-        musicSrv.playSong(0);*/
         playStory(curChapter.getOnNo());
     }
 
@@ -825,19 +743,11 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
                     String yesNoText = text.get(0);
 
                     if (yesNoText.equalsIgnoreCase("Yes")) {
-                        /*prevPosition = curPosition;
-                        curPosition = curChapter.getOnYes();
-                        fix_chapter();*/
                         onYes();
 
                     } else {
-                        /*prevPosition = curPosition;
-                        curPosition = curChapter.getOnNo();
-                        fix_chapter();*/
                         onNo();
                     }
-                    //musicSrv.setList(songList);
-                    //musicSrv.playSong(0);
                 }
                 break;
             }
@@ -845,18 +755,12 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
         }
     }
 
-    // public void playNextChapter(View view) {
     public void playStory(int newPosition) {
-        //songList = new ArrayList<String>();
-        //musicSrv.setList(songList);
-        //controller.setEnabled(false);
         Log.i("PlayView:playstory", "Starting new Player activity with new position " + Integer.toString(newPosition));
         Intent intent = new Intent(this, PlayerView.class);
         intent.putExtra("CurStory", this.curStory);
         intent.putExtra("CurPosition", newPosition);
         intent.putExtra("PrevPosition", this.curPosition);
-        Log.i("playstory", "unsetting pausedbecauseyesno");
-        pausedBecauseYesNo = false;
         Log.i("PlayView:playstory", "NOT Calling pause cur activity");
         pauseCurActivity();
         startActivity(intent);
