@@ -136,7 +136,13 @@ public class MusicService extends Service implements
 
     public boolean isPng(){
         if(player !=null) {
-            return player.isPlaying();
+            try {
+                return player.isPlaying();
+            } catch(IllegalStateException il) {
+                Log.i("MusicService.isPng", "Illegal State Exception caught");
+                return false;
+
+            }
         }
         return false;
     }

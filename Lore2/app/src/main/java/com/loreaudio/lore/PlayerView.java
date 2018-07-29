@@ -155,11 +155,28 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
         }
     };
 
-    /*@Override
+    @Override
     public void onBackPressed() {
-        Intent backToMain = new Intent(this, MainActivity.class);
-        startActivity(backToMain);
-    }*/
+        super.onBackPressed();
+        //Intent backToMain = new Intent(this, MainActivity.class);
+        //startActivity(backToMain);
+        Log.i("OnBackPressed", "Pausing.... curchapter:" + Integer.toString(curChapter.id));
+        pauseCurActivity();
+
+    }
+
+    private void pauseCurActivity(){
+        if(!activityPaused) {
+            Log.i("PauseCurActivity", "Current Chapter:" + Integer.toString(curChapter.id));
+            activityPaused = true;
+            controller.setEnabled(false);
+            unbindService(musicConnection);
+            stopService(playIntent);
+        } else {
+            Log.i("PauseCurActivity", "Method called, but activitypaused is false. Current Chapter:" + Integer.toString(curChapter.id));
+        }
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -457,31 +474,60 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
     @Override
     protected void onPause(){
         super.onPause();
-        activityPaused = true;
+        Log.i("PlayActivity:OnPause", "Activity paused for some reason. Curchapter:" + Integer.toString(curChapter.id));
+        /*activityPaused = true;
         Log.i("On Pause", "Pausing... pausedbecauseyesno:" + Boolean.toString(pausedBecauseYesNo) + " curchapter:" + Integer.toString(curChapter.id));
         if(!pausedBecauseYesNo){
             controller.setEnabled(false);
             unbindService(musicConnection);
             stopService(playIntent);
-        }
+        }*/
     }
 
     @Override
+    protected void onStop(){
+        super.onStop();
+        Log.i("PlayActivity:OnStop", "Activity stopped. NOT Calling pauseCurActivity CurChapter:" + Integer.toString(curChapter.id));
+        //pauseCurActivity();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.i("PlayActivity:OnRestart", "Activity restarting...Curchapter:" + Integer.toString(curChapter.id));
+        if(activityPaused) {
+            activityPaused = false;
+            if (playIntent == null) {
+                Log.i("on Resume Chapter:" + Integer.toString(curChapter.id), "Intent is null");
+                playIntent = new Intent(this, MusicService.class);
+            } else {
+                Log.i("on Resume Chapter:" + Integer.toString(curChapter.id), "Intent is NOT null");
+            }
+            playIntent.putExtra("fromResume", true);
+            bindService(playIntent, musicConnection, Context.BIND_AUTO_CREATE);
+            controller.setEnabled(true);
+            startService(playIntent);
+        }
+    }
+
+    /*@Override
     protected void onResume(){
         super.onResume();
-        activityPaused = false;
-        if (playIntent == null) {
-            Log.i("on Resume Chapter:" + Integer.toString(curChapter.id), "Intent is null" );
-            playIntent = new Intent(this, MusicService.class);
-        } else {
-            Log.i("on Resume Chapter:" + Integer.toString(curChapter.id), "Intent is NOT null");
+        if(activityPaused) {
+            activityPaused = false;
+            if (playIntent == null) {
+                Log.i("on Resume Chapter:" + Integer.toString(curChapter.id), "Intent is null");
+                playIntent = new Intent(this, MusicService.class);
+            } else {
+                Log.i("on Resume Chapter:" + Integer.toString(curChapter.id), "Intent is NOT null");
+            }
+            playIntent.putExtra("fromResume", true);
+            bindService(playIntent, musicConnection, Context.BIND_AUTO_CREATE);
+            controller.setEnabled(true);
+            startService(playIntent);
         }
-        playIntent.putExtra("fromResume", true);
-        bindService(playIntent, musicConnection, Context.BIND_AUTO_CREATE);
-        controller.setEnabled(true);
-        startService(playIntent);
 
-    }
+    }*/
 
     /* seek bar stuff from
     https://github.com/brightec/ExampleMediaController/blob/master/src/uk/co/brightec/example/mediacontroller/VideoControllerView.java
@@ -811,6 +857,8 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
         intent.putExtra("PrevPosition", this.curPosition);
         Log.i("playstory", "unsetting pausedbecauseyesno");
         pausedBecauseYesNo = false;
+        Log.i("PlayView:playstory", "NOT Calling pause cur activity");
+        pauseCurActivity();
         startActivity(intent);
     }
 }
