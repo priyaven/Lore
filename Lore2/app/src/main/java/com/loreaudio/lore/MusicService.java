@@ -27,6 +27,7 @@ public class MusicService extends Service implements
     private ArrayList<String> songs;
     private int curChapterid;
     private int boundChapterid;
+    private boolean boundFromRestart;
     //current position
     private int songPosn;
 
@@ -71,6 +72,7 @@ public class MusicService extends Service implements
     @Override
     public IBinder onBind(Intent intent) {
         this.boundChapterid = intent.getIntExtra("CurChapter", 0);
+        this.boundFromRestart = intent.getBooleanExtra("fromRestart", false);
         Log.i("MusicService:onBind", "Binding chapter " + Integer.toString(this.boundChapterid));
         return musicBind;
 
@@ -107,7 +109,7 @@ public class MusicService extends Service implements
 
     public void setList(ArrayList<String> theSongs, int chid){
         songs=theSongs;
-        if((curChapterid <= chid) && (lastPlayedSong == 0)){
+        if(boundFromRestart || (lastPlayedSong == 0)){
             playSong(1);
         } else {
             playSong(0);
