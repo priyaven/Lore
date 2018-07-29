@@ -14,6 +14,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.concurrent.ExecutionException;
 
 public class DownloadStories
 {
@@ -24,6 +25,12 @@ public class DownloadStories
     {
         Download download = new Download(ctx);
         download.execute(storyUrl, path);
+    }
+
+    public void downloadWait(String storyUrl, String path, Context ctx) throws ExecutionException, InterruptedException {
+        // Blocking download, so the method calling this will wait until download completes.
+        Download download = new Download(ctx);
+        Object result = download.execute(storyUrl, path).get();
     }
 
     private InputStream openHTTPConnection(String myurl)

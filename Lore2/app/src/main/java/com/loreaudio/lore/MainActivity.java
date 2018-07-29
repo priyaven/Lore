@@ -23,6 +23,7 @@ import org.xml.sax.SAXException;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -80,7 +81,9 @@ public class MainActivity extends AppCompatActivity {
             if(!xmlFile.exists()) {
                 // TODO check if file is too old, or malformed.
                 DownloadStories dl = new DownloadStories();
-                dl.downloadStory(storiesXml, localXml, MainActivity.this);
+                // Blocking download
+                // TODO behavior if download fails.
+                dl.downloadWait(storiesXml, localXml, MainActivity.this);
             }
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
@@ -103,6 +106,10 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
             e.printStackTrace();
         }
 
