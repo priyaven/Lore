@@ -12,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -24,7 +25,7 @@ public class MusicService extends Service implements
     //media player
     private MediaPlayer player;
     //song list
-    private ArrayList<String> songs;
+    private ArrayList<String[]> songs;
     private int curChapterid;
     private int boundChapterid;
     private boolean boundFromRestart;
@@ -93,21 +94,29 @@ public class MusicService extends Service implements
     public void playSong(int i){
         //play a song
         player.reset();
-
+        String trackUri = songs.get(i)[0];
         try{
-            //player.setAudioStreamType(AudioManager.STREAM_MUSIC);
-            String trackUri = songs.get(i);
             player.setDataSource(trackUri);
         }
         catch(Exception e){
-            e.printStackTrace();
+            //e.printStackTrace();
+            Log.i("MusicService:playSong", "Exception in setting datasource " + trackUri );
+            String trackUriStream = songs.get(i)[1];
+            try {
+                player.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                player.setDataSource(trackUriStream);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+                Log.i("MusicService:playSong", "exception in setting streaming URL " + trackUriStream);
+
+            }
         }
         player.setOnPreparedListener(this);
         player.prepareAsync();
         lastPlayedSong = i;
     }
 
-    public void setList(ArrayList<String> theSongs, int chid){
+    public void setList(ArrayList<String[]> theSongs, int chid){
         songs=theSongs;
         if(boundFromRestart || (lastPlayedSong == 0)){
             playSong(1);

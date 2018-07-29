@@ -65,7 +65,7 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
     private MusicService musicSrv;
     private Intent playIntent;
     private boolean musicBound = false;
-    private ArrayList<String> songList;
+    private ArrayList<String[]> songList;
     private boolean mDragging;
     private SeekBar mProgress;
     private Handler mHandler;
@@ -99,7 +99,7 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
 
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            Log.i("onServiceConnected", "Adding songlist" + songList.get(0));
+            Log.i("onServiceConnected", "Adding songlist" + songList.get(0)[0]);
             MusicService.MusicBinder binder = (MusicService.MusicBinder) service;
             //get service
             musicSrv = binder.getService();
@@ -422,7 +422,7 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
             prevChapter = curStory.chapters.get(new Integer(prevPosition));
         }
         curChapter = curStory.chapters.get(new Integer(curPosition));
-        songList = new ArrayList<String>();
+        songList = new ArrayList<String[]>();
         File mp3file = new File(Environment.getExternalStorageDirectory()+ File.separator +curChapter.localChapterPath);
         File mp3Qfile = new File(Environment.getExternalStorageDirectory()+ File.separator + curChapter.localChapterQPath);
         if((!mp3file.exists()) || (!curChapter.isEnd() && !mp3Qfile.exists())){
@@ -430,10 +430,15 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
             boolean success = curChapter.downloadChapter(PlayerView.this);
             // TODO if this is false, do stuff.
         }
-        // TODO if file is still downloading after a few secconds, start streaming it.
-        songList.add(mp3file.getAbsolutePath());
+        String[] chapterFile = new String[2];
+        chapterFile[0] = mp3file.getAbsolutePath();
+        chapterFile[1] = curChapter.mp3File;
+        songList.add(chapterFile);
         if(!curChapter.isEnd()) {
-            songList.add(mp3Qfile.getAbsolutePath());
+            String[] chapterQFile = new String[2];
+            chapterQFile[0] = mp3Qfile.getAbsolutePath();
+            chapterQFile[1] = curChapter.mp3QuestionFile;
+            songList.add(chapterQFile);
         }
 
         TextView chapterTitle = (TextView) findViewById(R.id.chapterTitle);
