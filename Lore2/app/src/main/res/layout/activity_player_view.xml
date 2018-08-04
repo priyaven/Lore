@@ -148,26 +148,48 @@
             <ImageButton
                 android:id="@+id/rewind"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
                 android:background="@drawable/rewind_15"
                 android:contentDescription="@string/rewind_button"
                 android:onClick="rewind" />
 
             <ImageButton
-                android:id="@+id/playpause"
+                android:id="@+id/playstory"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:background="@drawable/ic_playstory"
+                android:backgroundTint="@color/basicHighlight"
+                android:contentDescription="Play Story"
+                android:onClick="goToStory"
+                />
+
+            <ImageButton
+                android:id="@+id/playpause"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:layout_weight="2"
                 android:background="@drawable/play"
                 android:contentDescription="@string/play_button"
                 android:onClick="togglePlay" />
 
             <ImageButton
+                android:id="@+id/playquestion"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:background="@drawable/ic_playquestion"
+                android:backgroundTint="@color/basicHighlight"
+                android:contentDescription="Play Question"
+                android:onClick="goToQuestion"
+                />
+
+            <ImageButton
                 android:id="@+id/forward"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="4"
+                android:layout_weight="2"
                 android:background="@drawable/forward_15"
                 android:contentDescription="@string/ffw_button"
                 android:onClick="fastforward" />

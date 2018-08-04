@@ -617,7 +617,7 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
     }
 
     // TODO add button to give user the option to choose this
-    public void songpicked(View view) {
+    public void goToStory(View view) {
         musicSrv.playSong(0);
     }
     // TODO add button to give user the option to choose this.
