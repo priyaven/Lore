@@ -1,8 +1,14 @@
 package com.loreaudio.lore;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Environment;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -10,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.MenuItem;
 
 import android.view.View;
@@ -32,6 +39,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import com.loreaudio.lore.DownloadStories.*;
 
 public class MainActivity extends AppCompatActivity {
+    public static final int PERMISSION_REQUEST_CODE = 1;
 
     ListView eachstory;
     ArrayList<Story> storylist;
@@ -115,6 +123,33 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public boolean checkPermission(Context context) {
+        int result = ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE);
+        if (result == PackageManager.PERMISSION_GRANTED) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public void requestPermission(Activity activity) {
+        ActivityCompat.requestPermissions(activity, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+        ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+    }
+    
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSION_REQUEST_CODE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Log.e("value", "Permission Granted, Now you can use local drive .");
+                } else {
+                    Log.e("value", "Permission Denied, You cannot use local drive .");
+                }
+                break;
+        }
+    }
 
    // public void playNextChapter(View view) {
     public void playStory(int position){
