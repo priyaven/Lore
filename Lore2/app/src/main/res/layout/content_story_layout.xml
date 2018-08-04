@@ -48,7 +48,14 @@
         android:background="@drawable/download"
         android:id="@+id/download"
         />
-
+    <Button
+        android:id="@+id/deleteDownload"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/ic_delete"
+        />
     <TextView
         android:id="@+id/Author"
         android:layout_width="match_parent"

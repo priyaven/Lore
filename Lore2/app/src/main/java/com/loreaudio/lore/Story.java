@@ -138,6 +138,14 @@ public class Story implements Serializable{
         return true;
     }
 
+    public void deleteStory() {
+        Iterator<Map.Entry<Integer, Chapter>> itr = chapters.entrySet().iterator();
+        while(itr.hasNext()){
+            Map.Entry<Integer, Chapter> entry = itr.next();
+            entry.getValue().deleteChapter();
+        }
+    }
+
     public String getAuthor() {
         return author;
     }

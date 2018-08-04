@@ -1,10 +1,13 @@
 package com.loreaudio.lore;
 
 import android.content.Context;
+import android.os.Environment;
+import android.util.Log;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -115,6 +118,23 @@ public class Chapter implements Serializable {
             return false;
         }
         return true;
+    }
+
+    public void deleteChapter() {
+        File mp3fh = new File(Environment.getExternalStorageDirectory()+ File.separator + this.localChapterPath);
+        if(mp3fh.exists()) {
+            Log.i("Chapter.deleteChapter", this.localChapterPath);
+            mp3fh.delete();
+        }
+        if(this.localChapterQPath != null) {
+            File mp3qfh = new File(Environment.getExternalStorageDirectory()+ File.separator + this.localChapterQPath);
+            if (mp3qfh.exists()){
+                Log.i("Chapter.deleteChapter", this.localChapterQPath);
+                mp3qfh.delete();
+            }
+        }
+
+
     }
 
     public static ArrayList<Chapter> chapterObjects(NodeList chapterNodes, int storyId) {

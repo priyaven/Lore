@@ -61,6 +61,18 @@ public class StoryAdapter extends ArrayAdapter<Story> {
             }
         });
 
+        Button deleteButton = (Button) convertView.findViewById(R.id.deleteDownload);
+        deleteButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                story.deleteStory();
+                //tv.setText(months[rand.nextInt(12)]);
+                //tv.setTextColor(Color.rgb(rand.nextInt(255)+1, rand.nextInt(255)+1, rand.nextInt(255)+1));
+            }
+        });
+
         TextView storyid_hidden = (TextView) convertView.findViewById(R.id.hiddenStoryId);
         storyid_hidden.setText(Integer.toString(position));
 
