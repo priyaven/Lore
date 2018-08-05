@@ -80,45 +80,10 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                     }
                 });
-
-        //eachstory.setAdapter(new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1,
-        //getResources().getStringArray(R.array.stories)));
-
-        try {
-            File xmlFile = new File(Environment.getExternalStorageDirectory()+ File.separator + localXml);
-            if(!xmlFile.exists()) {
-                // TODO check if file is too old, or malformed.
-                DownloadStories dl = new DownloadStories();
-                // Blocking download
-                // TODO behavior if download fails.
-                dl.downloadWait(storiesXml, localXml, MainActivity.this);
-            }
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            Document doc = builder.parse(xmlFile);
-            //Document doc = builder.parse(getResources().openRawResource(R.raw.stories));
-            NodeList storyNodes = doc.getElementsByTagName("story");
-            storylist = Story.storyObjects(storyNodes);
-            StoryAdapter storyAdapter = new StoryAdapter(MainActivity.this, storylist);
-            eachstory.setAdapter(storyAdapter);
-            eachstory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    // Get the selected item text from ListView
-
-                    playStory(position);
-                }
-            });
-        } catch (SAXException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
+        if(!checkPermission(this)) {
+            requestPermission(this);
+        } else {
+            createStoriesXml();
         }
 
     }
@@ -135,7 +100,52 @@ public class MainActivity extends AppCompatActivity {
 
     public void requestPermission(Activity activity) {
         ActivityCompat.requestPermissions(activity, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
-        ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+        //ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+    }
+
+    private void createStoriesXml(){
+        try {
+            File xmlFile = new File(Environment.getExternalStorageDirectory()+ File.separator + localXml);
+            if(!xmlFile.exists()) {
+                // TODO check if file is too old, or malformed.
+                DownloadStories dl = new DownloadStories();
+                // Blocking download
+                // TODO behavior if download fails.
+                dl.downloadWait(storiesXml, localXml, MainActivity.this);
+            }
+            loadStoriesXml(xmlFile);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadStoriesXml(File xmlFile){
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = null;
+        try {
+            builder = factory.newDocumentBuilder();
+            Document doc = builder.parse(xmlFile);
+            //Document doc = builder.parse(getResources().openRawResource(R.raw.stories));
+            NodeList storyNodes = doc.getElementsByTagName("story");
+            storylist = Story.storyObjects(storyNodes);
+            StoryAdapter storyAdapter = new StoryAdapter(MainActivity.this, storylist);
+            eachstory.setAdapter(storyAdapter);
+            eachstory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    // Get the selected item text from ListView
+                    playStory(position);
+                }
+            });
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     
     @Override
@@ -144,6 +154,7 @@ public class MainActivity extends AppCompatActivity {
             case PERMISSION_REQUEST_CODE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Log.e("value", "Permission Granted, Now you can use local drive .");
+                    createStoriesXml();
                 } else {
                     Log.e("value", "Permission Denied, You cannot use local drive .");
                 }
@@ -153,7 +164,6 @@ public class MainActivity extends AppCompatActivity {
 
    // public void playNextChapter(View view) {
     public void playStory(int position){
-
         Intent intent = new Intent(this, PlayerView.class);
         Story curStory = storylist.get(position);
         if(curStory == null){
