@@ -379,7 +379,7 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
             // Line
             Paint paint = new Paint();
             paint.setColor(Color.GRAY);
-            paint.setStrokeWidth(10);
+            paint.setStrokeWidth(2);
             float startx = bpar.getX() + buttonsize*2 - buttonsize/3;
             float starty = bpar.getY()+ buttonsize*2 - buttonsize/3;
             int endx = width/2;
