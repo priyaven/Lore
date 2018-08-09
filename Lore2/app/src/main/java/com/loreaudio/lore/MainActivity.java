@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
+        actionbar.setDisplayShowTitleEnabled(false);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
 
         navView.setNavigationItemSelectedListener(
