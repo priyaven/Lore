@@ -76,15 +76,15 @@
             android:background="@color/basic"
             android:weightSum="3">
             
-            <android.support.design.widget.BottomNavigationView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                app:itemBackground="@color/basicDark"
-                app:itemIconTint="@color/basicHighlight"
-                app:itemTextColor="@color/basicAccent"
-                app:menu="@menu/bottomnavmenu">
-            </android.support.design.widget.BottomNavigationView>
+            <!--<android.support.design.widget.BottomNavigationView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentBottom="true"-->
+                <!--app:itemBackground="@color/basicDark"-->
+                <!--app:itemIconTint="@color/basicHighlight"-->
+                <!--app:itemTextColor="@color/basicAccent"-->
+                <!--app:menu="@menu/bottomnavmenu">-->
+            <!--</android.support.design.widget.BottomNavigationView>-->
         </RelativeLayout>
 
     </RelativeLayout>
