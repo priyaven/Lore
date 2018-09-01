@@ -28,8 +28,19 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bookmark_toggle"
+                android:layout_alignParentStart="true"
                 android:contentDescription="@string/bookmark_button"
                 android:onClick="toggleBookmark" />
+
+            <Switch
+                android:id="@+id/toggle_voice"
+                android:layout_width="wrap_content"
+                android:layout_toRightOf="@+id/bookmark_button"
+                android:checked="true"
+                android:text="Voice Input"
+                android:paddingLeft="50dp"
+                android:textColor="@color/basicAccent"
+                android:layout_height="wrap_content" />
 
             <ImageButton
                 android:id="@+id/more_button"
