@@ -194,6 +194,11 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
 
         createNode(isRoot, curChapter.getTitle(),curChapter.isEnd());
 
+        if (curChapter.isEnd()){
+            ImageButton playQbutton = (ImageButton) findViewById(R.id.playquestion);
+            playQbutton.setEnabled(false);
+        }
+
         TextView storyTitle = (TextView) findViewById(R.id.bookTitle);
         storyTitle.setText(curStory.getTitle());
 
