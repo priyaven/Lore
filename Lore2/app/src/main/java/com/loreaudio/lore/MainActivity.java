@@ -58,13 +58,14 @@ public class MainActivity extends AppCompatActivity {
 
         drawer = (DrawerLayout)findViewById(R.id.drawer_layout);
 
-        navView = (NavigationView)findViewById(R.id.nav_view);
+        //navView = (NavigationView)findViewById(R.id.nav_view);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
+        actionbar.setDisplayShowTitleEnabled(false);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
-
+        /*
         navView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
@@ -79,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
 
                         return true;
                     }
-                });
+                });*/
         if(!checkPermission(this)) {
             requestPermission(this);
         } else {
