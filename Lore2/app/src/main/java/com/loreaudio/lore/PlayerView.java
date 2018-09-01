@@ -34,6 +34,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import android.widget.MediaController.MediaPlayerControl;
@@ -87,9 +88,10 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
                     Log.i("BroadcastReceiver", "previd:" + prevChapter.getId() + " isend:" + prevChapter.isEnd());
                 }
                 int audiotype = intent.getIntExtra("audiotype", 999);
+                Switch voiceToggle = (Switch) findViewById(R.id.toggle_voice);
                 if (audiotype == 0) {
                     musicSrv.playSong(1);
-                } else if (audiotype == 1) {
+                } else if ((audiotype == 1) && (voiceToggle.isChecked())) {
                     yesNoListener();
                 }
             }
@@ -184,6 +186,7 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
         curPosition = (int) getIntent().getIntExtra("CurPosition", 1);
         prevPosition = (int) getIntent().getIntExtra("PrevPosition", 0);
 
+
         Log.i("OnCreate:", Integer.toString(curPosition) + " " + Integer.toString(prevPosition));
 
         fix_chapter();
@@ -198,6 +201,10 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
             ImageButton playQbutton = (ImageButton) findViewById(R.id.playquestion);
             playQbutton.setEnabled(false);
         }
+
+        Switch voiceToggle = (Switch) findViewById(R.id.toggle_voice);
+        boolean voiceActive = (boolean) getIntent().getBooleanExtra("VoiceControl", true);
+        voiceToggle.setChecked(voiceActive);
 
         TextView storyTitle = (TextView) findViewById(R.id.bookTitle);
         storyTitle.setText(curStory.getTitle());
@@ -782,6 +789,8 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
         intent.putExtra("CurStory", this.curStory);
         intent.putExtra("CurPosition", newPosition);
         intent.putExtra("PrevPosition", this.curPosition);
+        Switch voiceToggle = (Switch) findViewById(R.id.toggle_voice);
+        intent.putExtra("VoiceControl", voiceToggle.isChecked());
         Log.i("PlayView:playstory", "NOT Calling pause cur activity");
         pauseCurActivity();
         startActivity(intent);
