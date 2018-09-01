@@ -376,6 +376,13 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
 
             bpar.setText(this.prevChapter.getTitle());
 
+            bpar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onPrev();
+                }
+            });
+
             ImageView line = new ImageView(this);
             Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
             Canvas canvas = new Canvas(bitmap);
@@ -737,6 +744,10 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
 
     private void onNo(){
         playStory(curChapter.getOnNo());
+    }
+
+    private void onPrev() {
+        this.onBackPressed(); // TODO this is fucked up, delete this if possible.
     }
 
     @Override
