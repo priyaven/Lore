@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:layout_height="match_parent"
+<RelativeLayout xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
@@ -159,7 +160,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:background="@drawable/ic_playstory"
+                android:background="@drawable/play_story"
                 android:backgroundTint="@color/basicHighlight"
                 android:contentDescription="Play Story"
                 android:onClick="goToStory"
@@ -179,11 +180,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:background="@drawable/ic_playquestion"
+                android:background="@drawable/ask_question"
                 android:backgroundTint="@color/basicHighlight"
                 android:contentDescription="Play Question"
-                android:onClick="goToQuestion"
-                />
+                android:onClick="goToQuestion" />
 
             <ImageButton
                 android:id="@+id/forward"
