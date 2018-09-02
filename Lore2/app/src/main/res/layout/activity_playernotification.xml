@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:weightSum="10"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:backgroundTint="@color/basicDark"
+    >
+
+        <ImageButton
+            android:id="@+id/rewind"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:background="@drawable/rewind_15"
+            android:contentDescription="@string/rewind_button"
+            />
+
+        <ImageButton
+            android:id="@+id/playstory"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:background="@drawable/play_story"
+            android:backgroundTint="@color/basicHighlight"
+            android:contentDescription="Play Story"
+            />
+
+        <ImageButton
+            android:id="@+id/playpause"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:background="@drawable/play"
+            android:contentDescription="@string/play_button"
+            />
+
+        <ImageButton
+            android:id="@+id/playquestion"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:background="@drawable/ask_question"
+            android:backgroundTint="@color/basicHighlight"
+            android:contentDescription="Play Question"
+            />
+
+        <ImageButton
+            android:id="@+id/forward"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:background="@drawable/forward_15"
+            android:contentDescription="@string/ffw_button"
+            />
+
+    </LinearLayout>

@@ -170,6 +170,7 @@ public class MainActivity extends AppCompatActivity {
         if(curStory == null){
             return;
         }
+        showNotification();
         intent.putExtra("CurStory", curStory);
         intent.putExtra("CurPosition", curStory.getFirstChapterId());
         intent.putExtra("PrevPosition", 0);
@@ -184,6 +185,11 @@ public class MainActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void showNotification(){
+        new PlayerNotification(this);
+        finish();
     }
 
 }
