@@ -446,7 +446,7 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
         File mp3Qfile = new File(Environment.getExternalStorageDirectory()+ File.separator + curChapter.localChapterQPath);
         if((!mp3file.exists()) || (!curChapter.isEnd() && !mp3Qfile.exists())){
             // TODO add try-catch.
-            boolean success = curChapter.downloadChapter(PlayerView.this);
+            boolean success = curChapter.downloadChapter(PlayerView.this, curStory.getProgressBar());
             // TODO if this is false, do stuff.
         }
         String[] chapterFile = new String[2];

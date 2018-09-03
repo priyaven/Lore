@@ -5,7 +5,11 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Environment;
+import android.os.SystemClock;
+import android.provider.Settings;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -18,18 +22,30 @@ import java.util.concurrent.ExecutionException;
 
 public class DownloadStories
 {
-
+    //https://github.com/mdkess/ProgressBarListView/tree/master/src/ca/kess/demo
     //String url = "https://s3-us-west-1.amazonaws.com/loreaudio/story_";
+    Story mStory;
 
-    public void downloadStory(String storyUrl, String path, Context ctx)
+    public DownloadStories()
     {
-        Download download = new Download(ctx);
+
+    }
+
+    public DownloadStories(Story story)
+    {
+        mStory = story;
+    }
+
+
+    public void downloadStory(String storyUrl, String path, Context ctx, ProgressBar bar)
+    {
+        Download download = new Download(ctx, bar);
         download.execute(storyUrl, path);
     }
 
     public void downloadWait(String storyUrl, String path, Context ctx) throws ExecutionException, InterruptedException {
         // Blocking download, so the method calling this will wait until download completes.
-        Download download = new Download(ctx);
+        Download download = new Download(ctx, null);
         Object result = download.execute(storyUrl, path).get();
     }
 
@@ -67,18 +83,33 @@ public class DownloadStories
     private class Download extends AsyncTask<String, Integer, String> {
 
         private ProgressDialog progressDialog;
+        ProgressBar bar;
 
-        public Download(Context ctx) {
+        public Download(Context ctx, ProgressBar bar)
+        {
             super();
             this.progressDialog = new ProgressDialog(ctx);
+            this.bar = bar;
         }
 
+        @Override
+        protected void onProgressUpdate(Integer...values)
+        {
+            //mStory.setProgress(values[0]);
+            //bar = mStory.getProgressBar();
+//            if (bar != null)
+//            {
+//                //bar.setProgress(mStory.getProgress());
+//                bar.invalidate();
+//            }
+        }
         @Override
         protected void onPreExecute()
         {
             super.onPreExecute();
-            progressDialog.setMessage("Doing something, please wait.");
-            progressDialog.show();
+//            progressDialog.setMessage("Doing something, please wait.");
+//            progressDialog.show();
+            bar.setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -87,6 +118,7 @@ public class DownloadStories
             if (progressDialog.isShowing()) {
                 progressDialog.dismiss();
             }
+            bar.setVisibility(View.GONE);
         }
 
 
@@ -95,7 +127,6 @@ public class DownloadStories
         {
             try
             {
-
                   String loreDir = Environment.getExternalStorageDirectory()+ File.separator + strings[1];
                   File target = new File(loreDir);
                   Log.i("In doinbackground","Target file:" + loreDir);
@@ -138,10 +169,12 @@ public class DownloadStories
                 byte[] buf = new byte[4096];
 
                 int len;
-
+                int total = 0;
                 while ((len = is.read(buf)) > 0)
                 {
                     os.write(buf, 0, len);
+                    publishProgress(total);
+                    total += 1;
                 }
                 os.flush();
                 os.close();

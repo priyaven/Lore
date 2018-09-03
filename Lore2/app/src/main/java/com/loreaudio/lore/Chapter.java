@@ -3,6 +3,7 @@ package com.loreaudio.lore;
 import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
+import android.widget.ProgressBar;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -105,12 +106,12 @@ public class Chapter implements Serializable {
         this.title = title;
     }
 
-    public boolean downloadChapter(Context ctx){
+    public boolean downloadChapter(Context ctx, ProgressBar bar){
         try{
             DownloadStories dl = new DownloadStories();
-            dl.downloadStory(this.mp3File, this.localChapterPath, ctx);
+            dl.downloadStory(this.mp3File, this.localChapterPath, ctx, bar);
             if(!isEnd) {
-                dl.downloadStory(this.mp3QuestionFile, this.localChapterQPath, ctx);
+                dl.downloadStory(this.mp3QuestionFile, this.localChapterQPath, ctx, bar);
             }
 
         } catch (Exception e) {
