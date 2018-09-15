@@ -31,17 +31,8 @@ import java.util.List;
  */
 
 public class StoryAdapter extends ArrayAdapter<Story> {
-    ViewHolder holder = null;
-
-    private static class ViewHolder
-    {
-        ProgressBar progressBar;
-        Button button;
-        Story story;
-    }
 
     public StoryAdapter(@NonNull Context context, @NonNull ArrayList<Story> stories) {
-        //super(context, 0, stories);
         super(context, 0, stories);
 
     }
@@ -53,36 +44,13 @@ public class StoryAdapter extends ArrayAdapter<Story> {
         final Story story = getItem(position);
         View row = convertView;
 
-//        if (convertView == null) {
-//            convertView = LayoutInflater.from(getContext()).inflate(R.layout.content_story_layout, parent, false);
-//            holder = new ViewHolder();
-//            holder.progressBar = (ProgressBar) convertView.findViewById(R.id.progress_bar);
-//            holder.button = (Button) convertView.findViewById(R.id.download);
-//
-//            convertView.setTag(holder);
-//        }
-
         if (row == null)
         {
             //LayoutInflater inflater = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             //row = inflater.inflate(R.layout.content_story_layout, parent, false);
             row = LayoutInflater.from(getContext()).inflate(R.layout.content_story_layout, parent, false);
-
-            holder = new ViewHolder();
-            holder.progressBar = (ProgressBar) row.findViewById(R.id.progress_bar);
-            holder.button = (Button)row.findViewById(R.id.download);
-            holder.story = story;
-
-            row.setTag(holder);
         }
-        else
-        {
-            holder = (ViewHolder)row.getTag();
-            holder.story.setProgressBar(null);
-            holder.story = story;
-            Log.d("STORY", holder.story.getTitle());
-            holder.story.setProgressBar(holder.progressBar);
-        }
+
         // Lookup view for data population
         TextView title = (TextView) row.findViewById(R.id.titleText);
         TextView author = (TextView) row.findViewById(R.id.Author);
@@ -92,24 +60,21 @@ public class StoryAdapter extends ArrayAdapter<Story> {
         author.setText(story.getAuthor().trim());
 
         //progress bar
-        story.setProgressBar(holder.progressBar);
+        final ProgressBar bar = (ProgressBar)row.findViewById(R.id.progress_bar);
+        story.setProgressBar(bar);
 
-        //final Button downloadButton = (Button) convertView.findViewById(R.id.download);
-
-        final Button downloadButton = holder.button;
+        final Button downloadButton = (Button) row.findViewById(R.id.download);
 
         downloadButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                story.downloadStory(getContext(), holder.progressBar);
+                story.downloadStory(getContext(), bar);
                 Log.d("PROGRESS", String.valueOf(R.id.progress_bar));
-                //DownloadStories task = new DownloadStories(story);
-                downloadButton.setEnabled(false);
+                downloadButton.setEnabled(true);
                 downloadButton.invalidate();
-                downloadButton.setVisibility(View.INVISIBLE);
-                //task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                //downloadButton.setVisibility(View.INVISIBLE);
 
                 //tv.setText(months[rand.nextInt(12)]);
                 //tv.setTextColor(Color.rgb(rand.nextInt(255)+1, rand.nextInt(255)+1, rand.nextInt(255)+1));
