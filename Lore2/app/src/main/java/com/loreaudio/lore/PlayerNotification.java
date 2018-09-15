@@ -10,6 +10,8 @@ import android.widget.RemoteViews;
  * Created by priya on 9/1/2018.
  */
 
+// https://stackoverflow.com/questions/12526228/how-to-put-media-controller-button-on-notification-bar
+
 public class PlayerNotification extends Notification {
     private Context ctx;
     private NotificationManager mNotificationManager;
