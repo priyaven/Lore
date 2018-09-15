@@ -2,7 +2,6 @@ package com.loreaudio.lore;
 
 import android.content.Context;
 import android.os.Environment;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -42,7 +41,6 @@ public class Story implements Serializable{
     int firstChapterId = Integer.MAX_VALUE;
 
     HashMap<Integer, Chapter> chapters;
-    ProgressBar mProgressBar;
 
     public static ArrayList<Story> storyObjects(NodeList storyNodes) {
         ArrayList<Story> storyArrayList = new ArrayList<Story>();
@@ -86,7 +84,6 @@ public class Story implements Serializable{
         this.imagePath = storyPath + File.separator + "cover.jpg";
         this.imgUrl = this.awsS3path + this.imagePath;
         this.localImage = "Lore Audio" + File.separator + this.imagePath;
-        this.mProgressBar = null;
     }
 
     public Story(int id, String title, String author, String description) {
@@ -101,7 +98,6 @@ public class Story implements Serializable{
         this.imagePath = storyPath + File.separator + "cover.jpg";
         this.imgUrl = this.awsS3path + this.imagePath;
         this.localImage = "Lore Audio" + File.separator + this.imagePath;
-        this.mProgressBar = null;
     }
 
     public int getId() {
@@ -136,7 +132,7 @@ public class Story implements Serializable{
         Iterator<Map.Entry<Integer, Chapter>> itr = chapters.entrySet().iterator();
         while(itr.hasNext()){
             Map.Entry<Integer, Chapter> entry = itr.next();
-            setProgressBar(bar);
+            //setProgressBar(bar);
             Log.d("PROGRESS", String.valueOf(bar.getId()));
             boolean success = entry.getValue().downloadChapter(ctx, bar);
             if(!success){
@@ -159,7 +155,7 @@ public class Story implements Serializable{
     }
 
     public String getImgfile(Context ctx) {
-        downloadCover(ctx, getProgressBar());
+        downloadCover(ctx);//getProgressBar());
         return internalStorage + this.localImage; }
 
     public void setAuthor(String author) {
@@ -178,19 +174,12 @@ public class Story implements Serializable{
 
     public int getFirstChapterId() { return this.firstChapterId; }
 
-    public ProgressBar getProgressBar() {
-        return mProgressBar;
-    }
-    public void setProgressBar(ProgressBar progressBar) {
-        Log.d("TESTING PROGRESS BAR", "setProgressBar " + getTitle() + " to " + progressBar);
-        mProgressBar = progressBar;
-    }
 
-    public boolean downloadCover(Context ctx, ProgressBar bar) {
+    public boolean downloadCover(Context ctx) {
         File localImgFile = new File(internalStorage + localImage);
         if(!localImgFile.exists()){
             DownloadStories dl = new DownloadStories();
-            dl.downloadStory(this.imgUrl, this.localImage, ctx, bar);
+            dl.downloadStory(this.imgUrl, this.localImage, ctx);
             //TODO add try catch.
         }
         return true;

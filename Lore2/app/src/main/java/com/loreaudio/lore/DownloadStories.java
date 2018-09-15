@@ -43,6 +43,12 @@ public class DownloadStories
         download.execute(storyUrl, path);
     }
 
+    public void downloadStory(String storyUrl, String path, Context ctx) {
+        Download download = new Download(ctx, null);
+        download.execute(storyUrl, path);
+    }
+
+
     public void downloadWait(String storyUrl, String path, Context ctx) throws ExecutionException, InterruptedException {
         // Blocking download, so the method calling this will wait until download completes.
         Download download = new Download(ctx, null);
@@ -109,7 +115,9 @@ public class DownloadStories
             super.onPreExecute();
 //            progressDialog.setMessage("Doing something, please wait.");
 //            progressDialog.show();
-            bar.setVisibility(View.VISIBLE);
+            if(bar != null) {
+                bar.setVisibility(View.VISIBLE);
+            }
         }
 
         @Override
@@ -118,7 +126,9 @@ public class DownloadStories
             if (progressDialog.isShowing()) {
                 progressDialog.dismiss();
             }
-            bar.setVisibility(View.GONE);
+            if(bar != null) {
+                bar.setVisibility(View.GONE);
+            }
         }
 
 

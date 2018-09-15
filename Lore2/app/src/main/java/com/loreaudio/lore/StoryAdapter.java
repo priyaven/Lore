@@ -61,7 +61,6 @@ public class StoryAdapter extends ArrayAdapter<Story> {
 
         //progress bar
         final ProgressBar bar = (ProgressBar)row.findViewById(R.id.progress_bar);
-        story.setProgressBar(bar);
 
         final Button downloadButton = (Button) row.findViewById(R.id.download);
 
