@@ -75,16 +75,15 @@ public class StoryAdapter extends ArrayAdapter<Story> {
         //progress bar
         final ProgressBar bar = (ProgressBar)row.findViewById(R.id.progress_bar);
 
-        downloadButton = (Button) row.findViewById(R.id.download);
+        final Button downloadButton = (Button) row.findViewById(R.id.download);
         LocalBroadcastManager.getInstance(getContext()).registerReceiver(receiver, new IntentFilter());
-
 
         downloadButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                story.downloadStory(getContext(), bar);
+                story.downloadStory(getContext(), bar, downloadButton);
                 Log.d("PROGRESS", String.valueOf(R.id.progress_bar));
                 downloadButton.setEnabled(true);
                 downloadButton.invalidate();

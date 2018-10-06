@@ -42,16 +42,16 @@ public class DownloadStories
     }
 
 
-    public void downloadStory(String storyUrl, String path, Context ctx, ProgressBar bar)
+    public void downloadStory(String storyUrl, String path, Context ctx, ProgressBar bar, Button downloadButton)
     {
         context = ctx;
-        Download download = new Download(ctx, bar);
+        Download download = new Download(ctx, bar, downloadButton);
         download.execute(storyUrl, path);
     }
 
     public void downloadStory(String storyUrl, String path, Context ctx) {
         context = ctx;
-        Download download = new Download(ctx, null);
+        Download download = new Download(ctx, null, null);
         download.execute(storyUrl, path);
     }
 
@@ -59,7 +59,7 @@ public class DownloadStories
     public void downloadWait(String storyUrl, String path, Context ctx) throws ExecutionException, InterruptedException {
         // Blocking download, so the method calling this will wait until download completes.
         context = ctx;
-        Download download = new Download(ctx, null);
+        Download download = new Download(ctx, null, null);
         Object result = download.execute(storyUrl, path).get();
     }
 
@@ -98,47 +98,40 @@ public class DownloadStories
 
         private ProgressDialog progressDialog;
         ProgressBar bar;
+        Context ctx;
+        Button downloadButton;
 
-        public Download(Context ctx, ProgressBar bar)
+        public Download(Context ctx, ProgressBar bar, Button downloadButton)
         {
             super();
             this.progressDialog = new ProgressDialog(ctx);
             this.bar = bar;
+            this.ctx = ctx;
+            this.downloadButton = downloadButton;
         }
 
         @Override
         protected void onProgressUpdate(Integer...values)
         {
-            //mStory.setProgress(values[0]);
-            //bar = mStory.getProgressBar();
-//            if (bar != null)
-//            {
-//                //bar.setProgress(mStory.getProgress());
-//                bar.invalidate();
-//            }
+
         }
         @Override
         protected void onPreExecute()
         {
             super.onPreExecute();
-//            progressDialog.setMessage("Doing something, please wait.");
-//            progressDialog.show();
             if(bar != null) {
                 bar.setVisibility(View.VISIBLE);
+                downloadButton.setVisibility(View.INVISIBLE);
             }
         }
 
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            if (progressDialog.isShowing()) {
-                progressDialog.dismiss();
-            }
             if(bar != null) {
                 bar.setVisibility(View.GONE);
             }
-            Button b = (Button)((Activity)context).findViewById(R.id.download);
-            b.setVisibility(View.VISIBLE);
+            downloadButton.setVisibility(View.VISIBLE);
         }
 
 

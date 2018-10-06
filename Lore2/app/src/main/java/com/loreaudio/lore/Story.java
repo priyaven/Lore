@@ -3,6 +3,7 @@ package com.loreaudio.lore;
 import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -128,13 +129,13 @@ public class Story implements Serializable{
         }
     }
 
-    public boolean downloadStory(Context ctx, ProgressBar bar) {
+    public boolean downloadStory(Context ctx, ProgressBar bar, Button downloadButton) {
         Iterator<Map.Entry<Integer, Chapter>> itr = chapters.entrySet().iterator();
         while(itr.hasNext()){
             Map.Entry<Integer, Chapter> entry = itr.next();
             //setProgressBar(bar);
             Log.d("PROGRESS", String.valueOf(bar.getId()));
-            boolean success = entry.getValue().downloadChapter(ctx, bar);
+            boolean success = entry.getValue().downloadChapter(ctx, bar, downloadButton);
             if(!success){
                 return false;
             }

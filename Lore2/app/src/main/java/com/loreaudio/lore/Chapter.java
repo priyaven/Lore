@@ -3,6 +3,7 @@ package com.loreaudio.lore;
 import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.ProgressBar;
 
 import org.w3c.dom.Element;
@@ -31,6 +32,7 @@ public class Chapter implements Serializable {
     String chapterPath;
     String chapterQpath;
 
+    //String awsS3path = "https://github.com/priyaven/Lore/tree/master/loreaudio/";
     String awsS3path = "https://s3-us-west-1.amazonaws.com/loreaudio/";
 
     String localChapterPath;
@@ -106,12 +108,12 @@ public class Chapter implements Serializable {
         this.title = title;
     }
 
-    public boolean downloadChapter(Context ctx, ProgressBar bar){
+    public boolean downloadChapter(Context ctx, ProgressBar bar, Button downloadButton){
         try{
             DownloadStories dl = new DownloadStories();
-            dl.downloadStory(this.mp3File, this.localChapterPath, ctx, bar);
+            dl.downloadStory(this.mp3File, this.localChapterPath, ctx, bar, downloadButton);
             if(!isEnd) {
-                dl.downloadStory(this.mp3QuestionFile, this.localChapterQPath, ctx, bar);
+                dl.downloadStory(this.mp3QuestionFile, this.localChapterQPath, ctx, bar, downloadButton);
             }
 
         } catch (Exception e) {
