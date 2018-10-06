@@ -221,6 +221,10 @@ public class MusicService extends Service implements
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
 
+    public int getPlaylistLength() {
+        return songs.size();
+    }
+
     @Override
     public boolean onError(MediaPlayer mp, int what, int extra) {
         return false;

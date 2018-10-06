@@ -2,6 +2,7 @@ package com.loreaudio.lore;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -192,4 +193,14 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
+    public void clearNotification(){
+        NotificationManager notificationManager = (NotificationManager) this
+                .getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.cancel(548853);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }

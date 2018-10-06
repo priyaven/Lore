@@ -9,7 +9,7 @@
     >
 
         <ImageButton
-            android:id="@+id/rewind"
+            android:id="@+id/rewind_notif"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
@@ -18,7 +18,7 @@
             />
 
         <ImageButton
-            android:id="@+id/playstory"
+            android:id="@+id/playstory_notif"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
@@ -28,7 +28,7 @@
             />
 
         <ImageButton
-            android:id="@+id/playpause"
+            android:id="@+id/playpause_notif"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
@@ -37,7 +37,7 @@
             />
 
         <ImageButton
-            android:id="@+id/playquestion"
+            android:id="@+id/playquestion_notif"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
@@ -47,7 +47,7 @@
             />
 
         <ImageButton
-            android:id="@+id/forward"
+            android:id="@+id/forward_notif"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
