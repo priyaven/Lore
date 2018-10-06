@@ -3,12 +3,15 @@ package com.loreaudio.lore;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.os.SystemClock;
 import android.provider.Settings;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
 
 import java.io.File;
@@ -25,6 +28,8 @@ public class DownloadStories
     //https://github.com/mdkess/ProgressBarListView/tree/master/src/ca/kess/demo
     //String url = "https://s3-us-west-1.amazonaws.com/loreaudio/story_";
     Story mStory;
+    Context context;
+
 
     public DownloadStories()
     {
@@ -39,11 +44,13 @@ public class DownloadStories
 
     public void downloadStory(String storyUrl, String path, Context ctx, ProgressBar bar)
     {
+        context = ctx;
         Download download = new Download(ctx, bar);
         download.execute(storyUrl, path);
     }
 
     public void downloadStory(String storyUrl, String path, Context ctx) {
+        context = ctx;
         Download download = new Download(ctx, null);
         download.execute(storyUrl, path);
     }
@@ -51,6 +58,7 @@ public class DownloadStories
 
     public void downloadWait(String storyUrl, String path, Context ctx) throws ExecutionException, InterruptedException {
         // Blocking download, so the method calling this will wait until download completes.
+        context = ctx;
         Download download = new Download(ctx, null);
         Object result = download.execute(storyUrl, path).get();
     }
@@ -129,6 +137,8 @@ public class DownloadStories
             if(bar != null) {
                 bar.setVisibility(View.GONE);
             }
+            Button b = (Button)((Activity)context).findViewById(R.id.download);
+            b.setVisibility(View.VISIBLE);
         }
 
 

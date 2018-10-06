@@ -1,6 +1,9 @@
 package com.loreaudio.lore;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -11,6 +14,7 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,13 +35,22 @@ import java.util.List;
  */
 
 public class StoryAdapter extends ArrayAdapter<Story> {
+    Button downloadButton;
 
     public StoryAdapter(@NonNull Context context, @NonNull ArrayList<Story> stories) {
         super(context, 0, stories);
 
     }
 
+    BroadcastReceiver receiver = new BroadcastReceiver()
+    {
+        @Override
+        public void onReceive(Context context, Intent intent)
+        {
+            downloadButton.setVisibility(View.VISIBLE);
+        }
 
+    };
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -62,7 +75,9 @@ public class StoryAdapter extends ArrayAdapter<Story> {
         //progress bar
         final ProgressBar bar = (ProgressBar)row.findViewById(R.id.progress_bar);
 
-        final Button downloadButton = (Button) row.findViewById(R.id.download);
+        downloadButton = (Button) row.findViewById(R.id.download);
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(receiver, new IntentFilter());
+
 
         downloadButton.setOnClickListener(new View.OnClickListener()
         {
