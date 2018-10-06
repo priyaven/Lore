@@ -121,6 +121,9 @@ public class DownloadStories
             super.onPreExecute();
             if(bar != null) {
                 bar.setVisibility(View.VISIBLE);
+
+            }
+            if (downloadButton != null){
                 downloadButton.setVisibility(View.INVISIBLE);
             }
         }
@@ -131,7 +134,9 @@ public class DownloadStories
             if(bar != null) {
                 bar.setVisibility(View.GONE);
             }
-            downloadButton.setVisibility(View.VISIBLE);
+            if (downloadButton != null){
+                downloadButton.setVisibility(View.VISIBLE);
+            }
         }
 
 
