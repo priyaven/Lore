@@ -74,6 +74,7 @@ public class StoryAdapter extends ArrayAdapter<Story> {
 
         //progress bar
         final ProgressBar bar = (ProgressBar)row.findViewById(R.id.progress_bar);
+        final ProgressBar delete_bar = (ProgressBar)row.findViewById(R.id.delete_progress);
 
         final Button downloadButton = (Button) row.findViewById(R.id.download);
         LocalBroadcastManager.getInstance(getContext()).registerReceiver(receiver, new IntentFilter());
@@ -94,13 +95,13 @@ public class StoryAdapter extends ArrayAdapter<Story> {
             }
 
         });
-        Button deleteButton = (Button) row.findViewById(R.id.deleteDownload);
+        final Button deleteButton = (Button) row.findViewById(R.id.deleteDownload);
         deleteButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                story.deleteStory();
+                story.deleteStory(delete_bar, deleteButton);
                 //tv.setText(months[rand.nextInt(12)]);
                 //tv.setTextColor(Color.rgb(rand.nextInt(255)+1, rand.nextInt(255)+1, rand.nextInt(255)+1));
             }

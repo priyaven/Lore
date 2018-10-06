@@ -3,6 +3,7 @@ package com.loreaudio.lore;
 import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -143,11 +144,23 @@ public class Story implements Serializable{
         return true;
     }
 
-    public void deleteStory() {
+    public void deleteStory(ProgressBar bar, Button deleteButton) {
         Iterator<Map.Entry<Integer, Chapter>> itr = chapters.entrySet().iterator();
         while(itr.hasNext()){
             Map.Entry<Integer, Chapter> entry = itr.next();
+            deleteButton.setVisibility(View.INVISIBLE);
+            bar.setVisibility(View.VISIBLE);
             entry.getValue().deleteChapter();
+            try {
+                Thread.sleep(1000);
+            }
+            catch (InterruptedException e)
+            {
+                Thread.currentThread().interrupt();
+            }
+            Log.i("Delete", "Setting back to visible");
+            deleteButton.setVisibility(View.VISIBLE);
+            bar.setVisibility(View.INVISIBLE);
         }
     }
 

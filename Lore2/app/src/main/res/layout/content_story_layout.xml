@@ -39,15 +39,6 @@
         android:textColor="@color/basicAccent"
         android:focusable="false"
         android:textStyle="bold" />
-
-    <Button
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="50dp"
-        android:background="@drawable/download"
-        android:id="@+id/download"
-        />
     <ProgressBar
         android:id="@+id/progress_bar"
         android:layout_width="35dp"
@@ -58,12 +49,29 @@
         style="@android:style/Widget.ProgressBar.Large"
         />
     <Button
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/download"
+        android:id="@+id/download"
+        />
+    <Button
         android:id="@+id/deleteDownload"
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="100dp"
         android:background="@drawable/ic_delete"
+        />
+    <ProgressBar
+        android:id="@+id/delete_progress"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="100dp"
+        android:visibility="gone"
+        style="@android:style/Widget.ProgressBar.Large"
         />
     <TextView
         android:id="@+id/Author"
