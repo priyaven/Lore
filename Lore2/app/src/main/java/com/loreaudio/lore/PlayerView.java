@@ -28,6 +28,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -378,6 +379,9 @@ public class PlayerView extends AppCompatActivity implements MediaPlayerControl 
             bpar.setLayoutParams(paramspar);
             bpar.setX(0 - buttonsize);
             bpar.setY(0 - buttonsize);
+            //bpar.setGravity(Gravity.BOTTOM);
+            bpar.setPadding(buttonsize/2 + 25, buttonsize/2 + 5, 0, 0);
+            bpar.setTextSize(8);
             lyt.addView(bpar);
 
 
