@@ -43,6 +43,15 @@
             android:name=".StoryDescription"
             android:label="@string/description"
             android:theme="@style/AppTheme.DescriptionPopup" />
+        <activity android:name=".PlayerNotificationHelperActivity" />
+
+        <receiver
+            android:name="com.loreaudio.lore.NotificationDismissedReceiver"
+            android:exported="false" >
+        </receiver>
+
     </application>
+
+
 
 </manifest>
